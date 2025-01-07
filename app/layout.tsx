@@ -2,16 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { TanstackProvider } from "@/tanstack/tanstack-provider";
 import NavBar from "@/components/navbar/navbar";
-import Wrapper from "@/components/wrapper/wrapper";
-
 
 export const metadata: Metadata = {
   title: "Medeasy",
   description:
-    "",
+    "Connecting You with Reliable Help for All Your Household Tasks an Medical Tasks",
 };
-
-
 
 
 export default function RootLayout({
