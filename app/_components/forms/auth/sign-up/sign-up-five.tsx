@@ -45,25 +45,26 @@ const SignUpFiveForm: React.FC<{
   ) => {
     setSubmitting(true);
     insert<SignUpFiveSchemaType>({ ...values, role });
-    try {
-      await signUp(signUpData as allSignUpSchemaType);
-      // redirect('/dashboard/help-provider/success');
-      toggleNotification({
+    const response =await signUp(signUpData as allSignUpSchemaType);
+
+    if(!response) {
+      setSubmitting(false)
+      return toggleNotification({
         show: true,
         title: 'Signup success',
         message: 'Signup process was succesfull',
         type: 'success',
       });
-    } catch (error) {
-      toggleNotification({
-        show: true,
-        title: 'Signup Error',
-        message: (error as Error).message,
-        type: 'error',
-      });
-    } finally {
-      setSubmitting(false);
     }
+
+    setSubmitting(false);
+    toggleNotification({
+      show: true,
+      title: 'Signup Error',
+      message: response.error,
+      type: 'error',
+    });
+   
   };
 
   const handleVerify = useCallback(async (actNo: string, bank: string) => {

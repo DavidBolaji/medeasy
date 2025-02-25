@@ -4,7 +4,6 @@ import { getInjection } from '@/di/container';
 import { AuthenticationError } from '@/src/entities/error/auth';
 import {
   InputParseError,
-  NextRedirect,
   PrismaError,
 } from '@/src/entities/error/common';
 import { signInSchemaType } from '@/src/entities/models/auth/login-schema';
@@ -43,10 +42,16 @@ export async function signUp(data: allSignUpSchemaType) {
       error instanceof InputParseError ||
       error instanceof AuthenticationError
     ) {
-      throw new Error(error.message);
+      return {
+        success: false,
+        error: (error as Error).message
+      }
     }
     console.log((error as Error).message);
-    throw new Error('Something went wrong');
+    return {
+      success: false,
+      error: "Something went wrong"
+    }
   }
 
   redirect('/dashboard/help-provider/success');
@@ -78,16 +83,25 @@ export async function signUpAccountOwner(
       error instanceof AuthenticationError ||
       error instanceof PrismaError
     ) {
-      throw new Error(error.message);
+      return {
+        success: false,
+        error: (error as Error).message
+      }
     }
 
     if (
       (error as Error).message ===
       `The "payload" argument must be of type object. Received null`
     )
-      throw new Error('User with id exist');
-    // console.log((error as Error).message);
-    throw error;
+      return {
+        success: false,
+        error: "User with id exist"
+      }
+
+    return {
+      success: false,
+      error: (error as Error).message
+    }
   }
 
   redirect('/dashboard/account-owner/success');
@@ -111,10 +125,19 @@ export async function signIn(data: signInSchemaType, role: ROLE) {
       error instanceof InputParseError ||
       error instanceof AuthenticationError
     ) {
-      throw new Error(error.message);
+      return {
+        success: false,
+        error: error.message
+      }
+
     }
 
-    throw new Error('Something went wrong');
+    return {
+      success: false,
+      error: "Something went wrong"
+    }
+
+
   }
   redirect(`/dashboard/${[roleHashValue[role]]}/home?active=new`);
 }
@@ -170,6 +193,9 @@ export async function getBanks() {
     );
     return await IGetBanksForPaymentController();
   } catch (err) {
-    throw err;
+    return {
+      success: false,
+      error: (err as Error).message
+    }
   }
 }

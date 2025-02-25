@@ -21,28 +21,22 @@ const SignInForm = () => {
   const { toggleNotification } = useNotification();
 
   const onSubmit = async (values: signInSchemaType) => {
-    try {
-      await signIn(values, role);
-      toggleNotification({
+    const response = await signIn(values, role);
+    if (!response) {
+      return toggleNotification({
         show: true,
         title: 'Login successfull',
         type: 'success',
         message: 'User has been succesfully logged in',
       });
-    } catch (error) {
-      if ((error as Error).message === 'NEXT_REDIRECT') {
-        return toggleNotification({
-          show: true,
-          title: 'Login successfull',
-          type: 'success',
-          message: 'User has been succesfully logged in',
-        });
-      }
+    }
+
+    if (response?.error) {
       toggleNotification({
         show: true,
         title: 'Login Failed',
         type: 'error',
-        message: (error as Error).message,
+        message: response.error,
       });
     }
   };

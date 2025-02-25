@@ -19,7 +19,6 @@ import { Button } from '@/app/_components/ui/button';
 import { signUpAccountOwner } from '../actions';
 import { Loader2 } from 'lucide-react';
 import { useNotification } from '@/app/_hooks/use-notification';
-import usePwa from '@/app/_hooks/use-pwa';
 
 const SignUpFourForm: React.FC<{
   nextStep: () => void;
@@ -27,7 +26,6 @@ const SignUpFourForm: React.FC<{
   isLast?: boolean;
 }> = ({ nextStep, prevStep, isLast = false }) => {
   const { insert, getSignUpData, signUpData } = useSignUp();
-  const {} = usePwa();
   const { toggleNotification } = useNotification();
 
   const handleSubmit = async (
@@ -36,35 +34,29 @@ const SignUpFourForm: React.FC<{
   ) => {
     setSubmitting(true);
 
-    try {
-      await signUpAccountOwner({
-        ...signUpData,
-        ...values,
-      } as unknown as allSignUppAccountOwnerSchemaType);
-      toggleNotification({
+    const response = await signUpAccountOwner({
+      ...signUpData,
+      ...values,
+    } as unknown as allSignUppAccountOwnerSchemaType);
+
+    if (!response) {
+      setSubmitting(false)
+      return toggleNotification({
         type: 'success',
         title: 'Account Created Successfully',
         message: 'Account Owner account has been created successfully',
         show: true,
       });
-    } catch (error) {
-      if ((error as Error).message === 'NEXT_REDIRECT') {
-        return toggleNotification({
-          show: true,
-          type: 'success',
-          title: 'Account Created Successfully',
-          message: 'Account Owner account has been created successfully',
-        });
-      }
-      toggleNotification({
+    }
+
+    if (response?.error) {
+      setSubmitting(false)
+      return toggleNotification({
         show: true,
         title: 'Account creation Failed',
         type: 'error',
-        message: (error as Error).message,
+        message: response.error,
       });
-      console.log((error as Error).message);
-    } finally {
-      setSubmitting(false);
     }
   };
 
