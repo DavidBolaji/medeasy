@@ -1,0 +1,175 @@
+/* @import url('https://fonts.cdnfonts.com/css/satoshi'); */
+
+@import url('../public/instrument.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari and Opera */
+    }
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+body>* {
+    font-family: 'Instrument-Variable', 'InstrumentSans-Regular', sans-serif;
+}
+
+
+/* * {
+  overflow-x: hidden;
+} */
+
+ul {
+    display: list-item !important;
+}
+
+.text-black {
+    color: #141923;
+}
+
+.text-black-200 {
+    color: #5c698a;
+}
+
+.bg-blue {
+    background-color: #517df0;
+}
+
+.blue-400 {
+    background-color: #e7eeff;
+}
+
+
+/* Custom styles for NProgress */
+
+#nprogress .bar {
+    background: #517df0 !important;
+    /* Blue color */
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #517df0, 0 0 5px #517df0 !important;
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #517df0 !important;
+    border-left-color: #517df0 !important;
+}
+
+@layer base {
+     :root {
+        --background: 223 100% 95%;
+        --foreground: 223 5% 0%;
+        --card: 223 50% 90%;
+        --card-foreground: 223 5% 10%;
+        --popover: 223 100% 95%;
+        --popover-foreground: 223 100% 0%;
+        --primary: 223 84.1% 62.9%;
+        --primary-foreground: 0 0% 0%;
+        --secondary: 223 30% 70%;
+        --secondary-foreground: 0 0% 0%;
+        --muted: 185 30% 85%;
+        --muted-foreground: 223 5% 35%;
+        --accent: 185 30% 80%;
+        --accent-foreground: 223 5% 10%;
+        --destructive: 0 100% 30%;
+        --destructive-foreground: 223 5% 90%;
+        --border: 223 30% 50%;
+        --input: 223 30% 18%;
+        --ring: 223 84.1% 62.9%;
+        --radius: 0.5rem;
+    }
+    .dark {
+        --background: 223 50% 5%;
+        --foreground: 223 5% 90%;
+        --card: 223 50% 0%;
+        --card-foreground: 223 5% 90%;
+        --popover: 223 50% 5%;
+        --popover-foreground: 223 5% 90%;
+        --primary: 223 84.1% 62.9%;
+        --primary-foreground: 0 0% 0%;
+        --secondary: 223 30% 10%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 185 30% 15%;
+        --muted-foreground: 223 5% 60%;
+        --accent: 185 30% 15%;
+        --accent-foreground: 223 5% 90%;
+        --destructive: 0 100% 30%;
+        --destructive-foreground: 223 5% 90%;
+        --border: 223 30% 18%;
+        --input: 223 30% 18%;
+        --ring: 223 84.1% 62.9%;
+        --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    body {
+        @apply bg-background text-foreground font-instrument font-normal;
+    }
+}
+
+
+/* Center align toolbar */
+
+.ql-toolbar {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+
+/* Add padding and rounded border for the editor */
+
+.ql-container {
+    min-height: 110px;
+    /* Adjust height */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    font-family: 'Instrument-Variable', 'InstrumentSans-Regular', sans-serif;
+    font-size: 14px;
+    background-color: #fff;
+    position: relative !important;
+    display: block !important;
+}
+
+
+/* Style for the editor label */
+
+
+/* Remove focus border */
+
+.ql-container.ql-snow {
+    outline: none;
+}
+
+
+/* Style buttons to match the screenshot */
+
+.ql-toolbar button {
+    border: none;
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.ql-toolbar button:hover {
+    background-color: #e6e6e6;
+    border-radius: 4px;
+}
+
+
+/* .content ol {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+} */

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `request` MODIFY `stage` ENUM('NEW', 'ONGOING', 'COMPLETED', 'CANCELLED') NOT NULL DEFAULT 'NEW';

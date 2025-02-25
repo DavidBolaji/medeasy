@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum ROLE {
+  AccountOwner
+  HelpProvider
+}
+
+enum GENDER {
+  Male
+  Female
+}
+
+enum TRAINED {
+  Yes
+  No
+}
+
+enum UserType {
+  User
+  Admin
+}
+
+enum Stage {
+  NEW
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+model Address {
+  id      String  @id @default(uuid())
+  country String
+  address String
+  other   String?
+  state   String
+  street  String
+  userId  String  @unique
+  user    User    @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Bider {
+  id        String @id @default(uuid())
+  requestId String
+  userId    String
+
+  user            User     @relation(fields: [userId], references: [id])
+  request         Request  @relation("biders", fields: [requestId], references: [id])
+  acceptedRequest Request? @relation("acceptedBider")
+
+  price        Int
+  counterPrice Int?
+  pitch        String   @db.MediumText()
+  start        DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([requestId])
+  @@index([userId])
+}
+
+model Certification {
+  id          String @id @default(uuid())
+  name        String
+  certificate String @db.MediumText()
+  userId      String
+  user        User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Notifications {
+  id           String @id @default(uuid())
+  userId       String
+  user         User   @relation(fields: [userId], references: [id])
+  title       String
+  notification String @db.LongText()
+  read        Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Payment {
+  id     String @id @default(uuid())
+  bank   String
+  actNo  String
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Request {
+  id          String   @id @default(uuid())
+  service     String
+  title       String
+  description String   @db.LongText()
+  duration    String
+  start       DateTime
+  location    String
+  price       Int
+  negotiable  Boolean  @default(false)
+  stage       Stage    @default(NEW)
+
+  userId String
+  user   User?  @relation(fields: [userId], references: [id]) // Request creator
+
+  biders  Bider[]   @relation("biders") // Users who have bid on this request
+  reviews Reviews[]
+
+  acceptedBider   Bider?  @relation("acceptedBider", fields: [acceptedBiderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  acceptedBiderId String? @unique
+  finalPrice      Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+
+  @@index([userId])
+}
+
+model subscription {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  pushUrl   String   @db.LongText()
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId])
+
+}
+
+model Reviews {
+  id         String @id @default(uuid())
+  creatorId  String // id of creator
+  receivedId String // who review is made about
+  requestId  String
+
+  title       String
+  description String @db.MediumText()
+  star        Float 
+
+  reviewer  User     @relation("reviewer", fields: [creatorId], references: [id])
+  reviewed  User     @relation("reviewed", fields: [receivedId], references: [id])
+  request   Request  @relation(fields: [requestId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([creatorId])
+  @@index([receivedId])
+  @@index([requestId])
+}
+
+model Service {
+  id         String @id @default(uuid())
+  name       String
+  experience String @db.MediumText()
+  duration   Int
+  userId     String
+  user       User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String   @db.VarChar(255)
+  fname      String   @db.VarChar(30)
+  lname      String   @db.VarChar(30)
+  gender     GENDER
+  dob        DateTime
+  language   String
+  cv         String
+  medTrained TRAINED
+  role       ROLE
+  type       UserType @default(User)
+  address    Address?
+
+  services       Service[]
+  certificates   Certification[]
+  verification   Verification[]
+  payment        Payment[]
+  requests       Request[] // Requests created by the user
+  bids           Bider[] // Requests this user has bid on
+  createdReview  Reviews[]       @relation("reviewer") // Review created by user
+  receivedReview Reviews[]       @relation("reviewed") // review received
+  notifications  Notifications[]
+  subscriptions   subscription[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Session   Session[]
+}
+
+model Verification {
+  id     String @id
+  type   String
+  doc    String
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  expiry    DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
