@@ -54,6 +54,7 @@
         "react-intersection-observer": "^9.15.1",
         "react-paystack": "^6.0.0",
         "react-quill-new": "^3.3.3",
+        "recharts": "^2.15.1",
         "sharp": "^0.33.5",
         "tailwind-merge": "^2.6.0",
         "tailwindcss-animate": "^1.0.7",

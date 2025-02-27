@@ -1,10 +1,16 @@
 import { IUsersRepository } from '@/src/application/repositories/user.repository.interface';
-import { CreateUser, User, UserWithPassword } from '@/src/entities/models/user';
+import {
+  CreateUser,
+  GetUserAccountStatusType,
+  GetUserRoleCountType,
+  User,
+  UserWithPassword,
+} from '@/src/entities/models/user';
 import { db } from '@/prisma';
 import { formatDateToDbDate2 } from '@/app/_lib/utils';
 import { SignUpTwoSchemaType } from '@/src/entities/models/auth/sign-up-schema';
 import { IWorkDetail } from '@/src/entities/models/work';
-import { ROLE, User as PUser, Prisma } from '@prisma/client';
+import { ROLE, User as PUser, Prisma, UserType } from '@prisma/client';
 
 export class UsersRepository implements IUsersRepository {
   constructor() {}
@@ -84,6 +90,56 @@ export class UsersRepository implements IUsersRepository {
         },
       });
       return role?.role;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserType(id: string): Promise<UserType | undefined> {
+    try {
+      const user = await db.user.findUnique({
+        where: {
+          id,
+        },
+        select: {
+          type: true,
+        },
+      });
+      return user?.type;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserRoleCount(): Promise<GetUserRoleCountType> {
+    try {
+      const result = await db.user.groupBy({
+        by: ['type'],
+        _count: {
+          id: true,
+        },
+      });
+      const counts = Object.fromEntries(
+        result.map(({ type, _count }) => [type, _count.id])
+      );
+      return counts;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserAccountStatus(): Promise<GetUserAccountStatusType> {
+    try {
+      const [total, verified, deleted] = await Promise.all([
+        db.user.aggregate({ where: { verified: false }, _count: { id: true } }),
+        db.user.aggregate({ where: { verified: true }, _count: { id: true } }),
+        db.user.aggregate({ where: { deleted: true }, _count: { id: true } }),
+      ]);
+      return {
+        total: total._count.id,
+        verified: verified._count.id,
+        deleted: deleted._count.id,
+      };
     } catch (error) {
       throw error;
     }

@@ -1,4 +1,5 @@
 import { allSignUpSchemaType } from './auth/sign-up-schema';
+import { ComponentType, ReactNode } from 'react';
 
 export interface User {
   id: string;
@@ -26,3 +27,14 @@ export type CreateUser = Omit<
   | 'actVerified'
   | 'verifiedName'
 >;
+
+export type GetUserRoleCountType = { [k: string]: number };
+export type ReturnGetUserRoleCountType = { text: string; value: string };
+export type GetUserAccountStatusType = {
+  [k: string]: number;
+};
+export type ReturnGetUserAccountStatusType = {
+  icon: ComponentType<{ color?: string }>;
+  title: string;
+  value: string;
+};

@@ -14,6 +14,8 @@ import { signInController } from '@/src/adapters/auth/sign-in.controller';
 import { signInUseCase } from '@/src/application/use-cases/sign-in-use-case';
 import { signOutController } from '@/src/adapters/auth/sign-out.controller';
 import { signOutUseCase } from '@/src/application/use-cases/sign-out.use-case';
+import { signInAdminUseCase } from '@/src/application/use-cases/sign-in-admin-use-case';
+import { signInAdminController } from '@/src/adapters/auth/sign-in-admin.controller';
 
 export function createAuthenticationModule() {
   const authenticationModule = createModule();
@@ -59,6 +61,13 @@ export function createAuthenticationModule() {
     .bind(DI_SYMBOLS.ISignOutUseCase)
     .toHigherOrderFunction(signOutUseCase, [DI_SYMBOLS.IAuthenticationService]);
 
+  authenticationModule
+    .bind(DI_SYMBOLS.ISignInAdminUseCase)
+    .toHigherOrderFunction(signInAdminUseCase, [
+      DI_SYMBOLS.IUsersRepository,
+      DI_SYMBOLS.IAuthenticationService
+    ]);
+
   // conroller
   authenticationModule
     .bind(DI_SYMBOLS.ISignUpController)
@@ -83,6 +92,12 @@ export function createAuthenticationModule() {
     .toHigherOrderFunction(signOutController, [
       DI_SYMBOLS.IAuthenticationService,
       DI_SYMBOLS.ISignOutUseCase,
+    ]);
+
+  authenticationModule
+    .bind(DI_SYMBOLS.ISignInAdminController)
+    .toHigherOrderFunction(signInAdminController, [
+      DI_SYMBOLS.ISignInAdminUseCase,
     ]);
 
   return authenticationModule;

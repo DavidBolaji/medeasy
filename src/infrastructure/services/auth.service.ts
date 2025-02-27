@@ -10,7 +10,7 @@ import { IUsersRepository } from '@/src/application/repositories/user.repository
 import { IAuthenticationService } from '@/src/application/services/auth.service.interface';
 import { UnauthenticatedError } from '@/src/entities/error/auth';
 import { luciaAdapter } from '@/prisma';
-import { ROLE } from '@prisma/client';
+import { ROLE, UserType } from '@prisma/client';
 
 export class AuthenticationService implements IAuthenticationService {
   private _lucia: Lucia;
@@ -45,7 +45,7 @@ export class AuthenticationService implements IAuthenticationService {
 
   async validateSession(
     sessionId: string
-  ): Promise<{ user: User; session: Session; role: ROLE | undefined }> {
+  ): Promise<{ user: User; session: Session; role: ROLE | undefined, userType: UserType | undefined }> {
     const result = await this._lucia.validateSession(sessionId);
 
     if (!result.user || !result.session) {
@@ -58,9 +58,13 @@ export class AuthenticationService implements IAuthenticationService {
       throw new UnauthenticatedError("User doesn't exist");
     }
 
-    const role = await this._usersRepository.getUserRole(result.user.id);
+    const [role, userType] = await Promise.all([
+      this._usersRepository.getUserRole(result.user.id),
+      this._usersRepository.getUserType(result.user.id)
 
-    return { user, session: result.session, role };
+    ])
+
+    return { user, session: result.session, role, userType };
   }
 
   async createSession(

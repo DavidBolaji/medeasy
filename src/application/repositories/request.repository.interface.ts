@@ -2,6 +2,7 @@ import { AccptedBiderSchemaType } from '@/src/entities/models/bid';
 import {
   GetAllRequestType,
   GetRequestsSchemaType,
+  GetRequestStatType,
   GetSingleRequestType,
   RequestSchemaType,
 } from '@/src/entities/models/requests';
@@ -32,6 +33,8 @@ export interface IRequestRepository {
   }>;
 
   getSingleRequest(requestId: string): Promise<GetSingleRequestType | null>;
+  getRequestStat(): Promise<GetRequestStatType>;
+  getMonthlyCompleted(): Promise<any>;
 
   createRequest(
     input: RequestSchemaType,

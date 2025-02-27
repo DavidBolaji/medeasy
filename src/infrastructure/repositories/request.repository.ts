@@ -6,11 +6,13 @@ import {
   GetAccountOwnerRequestType,
   GetAllRequestType,
   GetRequestsSchemaType,
+  GetRequestStatType,
   GetSingleRequestType,
   RequestSchemaType,
 } from '@/src/entities/models/requests';
 import { ITransaction } from '@/src/entities/models/transaction';
 import { Stage } from '@prisma/client';
+import { endOfYear, startOfYear } from 'date-fns';
 
 export class RequestRepository implements IRequestRepository {
   async acceptOffer(input: AccptedBiderSchemaType): Promise<void> {
@@ -157,6 +159,44 @@ export class RequestRepository implements IRequestRepository {
       ]);
 
       return { requests, total };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getRequestStat(): Promise<GetRequestStatType> {
+    try {
+      const result = await db.request.groupBy({
+        by: ['stage'],
+        _count: {
+          id: true,
+        },
+      });
+      const counts = Object.fromEntries(
+        result.map(({ stage, _count }) => [stage, _count.id])
+      );
+      return counts;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getMonthlyCompleted(): Promise<any> {
+    try {
+      const completed = await db.request.groupBy({
+        by: ['createdAt'],
+        where: {
+          stage: 'COMPLETED',
+          createdAt: {
+            gte: startOfYear(new Date()),
+            lte: endOfYear(new Date()),
+          },
+        },
+        _count: {
+          id: true,
+        },
+      });
+      return completed;
     } catch (error) {
       throw error;
     }

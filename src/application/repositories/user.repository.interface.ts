@@ -1,13 +1,22 @@
 import { SignUpTwoSchemaType } from '@/src/entities/models/auth/sign-up-schema';
 import { ITransaction } from '@/src/entities/models/transaction';
-import { CreateUser, User, UserWithPassword } from '@/src/entities/models/user';
+import {
+  CreateUser,
+  GetUserAccountStatusType,
+  GetUserRoleCountType,
+  User,
+  UserWithPassword,
+} from '@/src/entities/models/user';
 import { IWorkDetail } from '@/src/entities/models/work';
-import { ROLE, User as PUser } from '@prisma/client';
+import { ROLE, User as PUser, UserType } from '@prisma/client';
 
 export interface IUsersRepository {
   getUser(id: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<UserWithPassword | undefined>;
   getUserRole(id: string): Promise<ROLE | undefined>;
+  getUserType(id: string): Promise<UserType | undefined>;
+  getUserRoleCount(): Promise<GetUserRoleCountType>;
+  getUserAccountStatus(): Promise<GetUserAccountStatusType>;
 
   getUserDetails(id: string): Promise<PUser | undefined>;
   getUserWorkDetails(id: string): Promise<IWorkDetail>;

@@ -9,6 +9,10 @@ import { getAllRequestsUseCase } from '@/src/application/use-cases/request/get-a
 import { getAllRequestsController } from '@/src/adapters/request/get-all-requests.controller';
 import { getSingleRequestUseCase } from '@/src/application/use-cases/request/get-single-request-use-case';
 import { getSingleRequestsController } from '@/src/adapters/request/get-single-request.controller';
+import { getRequestStatController } from '@/src/adapters/request/get-request-stat.controller';
+import { getRequestStatusUseCase } from '@/src/application/use-cases/request/get-request-stat-use-case';
+import { getMonthlyCompletedController } from '@/src/adapters/request/get-monthly-completed.controller';
+import { getMonthlyCompletedusUseCase } from '@/src/application/use-cases/request/get-monthly-completed-use-case';
 
 export function createRequestModule() {
   const requestModule = createModule();
@@ -45,6 +49,18 @@ export function createRequestModule() {
       DI_SYMBOLS.IRequestRepository,
     ]);
 
+  requestModule
+    .bind(DI_SYMBOLS.IGetRequestStatUseCase)
+    .toHigherOrderFunction(getRequestStatusUseCase, [
+      DI_SYMBOLS.IRequestRepository,
+    ]);
+
+  requestModule
+    .bind(DI_SYMBOLS.IGetMonthlyCompletedUseCase)
+    .toHigherOrderFunction(getMonthlyCompletedusUseCase, [
+      DI_SYMBOLS.IRequestRepository,
+    ]);
+
   // controller
   requestModule
     .bind(DI_SYMBOLS.ICreateRequestController)
@@ -71,6 +87,20 @@ export function createRequestModule() {
     .bind(DI_SYMBOLS.IGetSingleRequestController)
     .toHigherOrderFunction(getSingleRequestsController, [
       DI_SYMBOLS.IGetSingleRequestUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  requestModule
+    .bind(DI_SYMBOLS.IGetRequestStatController)
+    .toHigherOrderFunction(getRequestStatController, [
+      DI_SYMBOLS.IGetRequestStatUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  requestModule
+    .bind(DI_SYMBOLS.IGetMonthlyCompletedController)
+    .toHigherOrderFunction(getMonthlyCompletedController, [
+      DI_SYMBOLS.IGetMonthlyCompletedUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

@@ -1,4 +1,5 @@
 import { GENDER, Request } from '@prisma/client';
+import { ComponentType } from 'react';
 import { z } from 'zod';
 
 export type RequestStatus = 'new' | 'ongoing' | 'completed';
@@ -151,4 +152,11 @@ export type GetSingleRequestType = (Request | null) & {
     lname: string;
     email: string;
   } | null;
+};
+
+export type GetRequestStatType = { [k: string]: number };
+export type ReturnGetRequestStatType = {
+  icon: ComponentType<{ color?: string }>;
+  title: string;
+  value: string;
 };

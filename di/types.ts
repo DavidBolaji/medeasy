@@ -94,6 +94,16 @@ import { IGetBidingOfferForRequestController } from '@/src/adapters/bid/get-bidi
 import { IGetBidingOfferForRequestUseCase } from '@/src/application/use-cases/bid/get-biding-offer-for-request-use-case';
 import { IUpdateBidingOfferForRequestController } from '@/src/adapters/bid/update-biding-offer-for-request.controller';
 import { IUpdateBidingOfferForRequestUseCase } from '@/src/application/use-cases/bid/update-biding-offer-for-request-use-case';
+import { ISignInAdminController } from '@/src/adapters/auth/sign-in-admin.controller';
+import { IsignInAdminUseCase } from '@/src/application/use-cases/sign-in-admin-use-case';
+import { IGetUserRoleCountUseCase } from '@/src/application/use-cases/user/get-user-role-count-use-case';
+import { IGetUserRoleCountController } from '@/src/adapters/users/get-user-role-count.controller';
+import { IGetUserAccountStatusController } from '@/src/adapters/users/get-user-account-status.controller';
+import { IGetUserAccountStatusUseCase } from '@/src/application/use-cases/user/get-user-account-status-use-case';
+import { IGetRequestStatController } from '@/src/adapters/request/get-request-stat.controller';
+import { IGetRequestStatusUseCase } from '@/src/application/use-cases/request/get-request-stat-use-case';
+import { IGetMonthlyCompletedController } from '@/src/adapters/request/get-monthly-completed.controller';
+import { IGetMonthlyCompletedUseCase } from '@/src/application/use-cases/request/get-monthly-completed-use-case';
 // localhost:3000/dashboard/help-provider/personal-details
 export const DI_SYMBOLS = {
   IAuthenticationService: Symbol.for('IAuthenticationService'),
@@ -165,6 +175,13 @@ export const DI_SYMBOLS = {
   IUpdateBidingOfferForRequestController: Symbol.for(
     'IUpdateBidingOfferForRequestController'
   ),
+  ISignInAdminController: Symbol.for('ISignInAdminController'),
+  IGetUserRoleCountController: Symbol.for('IGetUserRoleCountController'),
+  IGetUserAccountStatusController: Symbol.for(
+    'IGetUserAccountStatusController'
+  ),
+  IGetRequestStatController: Symbol.for('IGetRequestStatController'),
+  IGetMonthlyCompletedController: Symbol.for('IGetMonthlyCompletedController'),
 
   ISignUpUseCase: Symbol.for('ISignUpUseCase'),
   ISignUpAccountOwnerUseCase: Symbol.for('ISignUpAccountOwnerUseCase'),
@@ -221,6 +238,11 @@ export const DI_SYMBOLS = {
   IUpdateBidingOfferForRequestUseCase: Symbol.for(
     'IUpdateBidingOfferForRequestUseCase'
   ),
+  ISignInAdminUseCase: Symbol.for('ISignInAdminUseCase'),
+  IGetUserRoleCountUseCase: Symbol.for('IGetUserRoleCountUseCase'),
+  IGetUserAccountStatusUseCase: Symbol.for('IGetUserAccountStatusUseCase'),
+  IGetRequestStatUseCase: Symbol.for('IGetRequestStatUseCase'),
+  IGetMonthlyCompletedUseCase: Symbol.for('IGetMonthlyCompletedUseCase'),
 
   IUsersRepository: Symbol.for('IUsersRepository'),
   ICertificationRepository: Symbol.for('ICertificationRepository'),
@@ -281,6 +303,11 @@ export interface DI_RETURN_TYPES {
   ICounterBiderOfferController: ICounterBiderOfferController;
   IGetBidingOfferForRequestController: IGetBidingOfferForRequestController;
   IUpdateBidingOfferForRequestController: IUpdateBidingOfferForRequestController;
+  ISignInAdminController: ISignInAdminController;
+  IGetUserRoleCountController: IGetUserRoleCountController;
+  IGetUserAccountStatusController: IGetUserAccountStatusController;
+  IGetRequestStatController: IGetRequestStatController;
+  IGetMonthlyCompletedController: IGetMonthlyCompletedController;
 
   ISignUpUseCase: ISignUpUseCase;
   ISignUpAccountOwnerUseCase: ISignUpAccountOwnerUseCase;
@@ -319,6 +346,11 @@ export interface DI_RETURN_TYPES {
   ICounterBiderOfferUseCase: ICounterBiderOfferUseCase;
   IGetBidingOfferForRequestUseCase: IGetBidingOfferForRequestUseCase;
   IUpdateBidingOfferForRequestUseCase: IUpdateBidingOfferForRequestUseCase;
+  ISignInAdminUseCase: IsignInAdminUseCase;
+  IGetUserRoleCountUseCase: IGetUserRoleCountUseCase;
+  IGetUserAccountStatusUseCase: IGetUserAccountStatusUseCase;
+  IGetRequestStatUseCase: IGetRequestStatusUseCase;
+  IGetMonthlyCompletedUseCase: IGetMonthlyCompletedUseCase;
 
   IUsersRepository: IUsersRepository;
   ICertificationRepository: ICertificationRepository;

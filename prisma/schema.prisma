@@ -86,12 +86,12 @@ model Certification {
 }
 
 model Notifications {
-  id           String @id @default(uuid())
+  id           String  @id @default(uuid())
   userId       String
-  user         User   @relation(fields: [userId], references: [id])
-  title       String
-  notification String @db.LongText()
-  read        Boolean @default(false)
+  user         User    @relation(fields: [userId], references: [id])
+  title        String
+  notification String  @db.LongText()
+  read         Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -150,15 +150,15 @@ model Session {
 }
 
 model subscription {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  pushUrl   String   @db.LongText()
+  id      String @id @default(uuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  pushUrl String @db.LongText()
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  @@index([userId])
 
+  @@index([userId])
 }
 
 model Reviews {
@@ -169,7 +169,7 @@ model Reviews {
 
   title       String
   description String @db.MediumText()
-  star        Float 
+  star        Float
 
   reviewer  User     @relation("reviewer", fields: [creatorId], references: [id])
   reviewed  User     @relation("reviewed", fields: [receivedId], references: [id])
@@ -210,6 +210,8 @@ model User {
   role       ROLE
   type       UserType @default(User)
   address    Address?
+  verified   Boolean  @default(false)
+  deleted    Boolean  @default(false)
 
   services       Service[]
   certificates   Certification[]
@@ -220,7 +222,7 @@ model User {
   createdReview  Reviews[]       @relation("reviewer") // Review created by user
   receivedReview Reviews[]       @relation("reviewed") // review received
   notifications  Notifications[]
-  subscriptions   subscription[]
+  subscriptions  subscription[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

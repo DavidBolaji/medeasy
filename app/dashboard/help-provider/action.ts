@@ -8,7 +8,7 @@ import { Cookie } from '@/src/entities/models/cookie';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export async function signOut(url: string) {
+export async function signOut(url?: string, admin?: boolean) {
   const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
 
   let blankCookie: Cookie;
@@ -19,7 +19,10 @@ export async function signOut(url: string) {
     if (err instanceof UnauthenticatedError || err instanceof InputParseError) {
       return redirect(`/start/${url}/sign-in`);
     }
-    throw err;
+    return {
+      success: false,
+      error: (err as Error).message
+    }
   }
 
   (await cookies()).set(
@@ -28,5 +31,9 @@ export async function signOut(url: string) {
     blankCookie.attributes
   );
 
-  return redirect(`/start/${url}/sign-in`);
+  if (!admin) {
+    return redirect(`/start/${url}/sign-in`);
+  }
+
+  return redirect('/dashboard/admin')
 }
