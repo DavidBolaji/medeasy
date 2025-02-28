@@ -1,26 +1,36 @@
 import { IAuthenticationService } from '@/src/application/services/auth.service.interface';
 import { IGetUserRoleCountUseCase } from '@/src/application/use-cases/user/get-user-role-count-use-case';
 
-import { UnauthenticatedError, UnauthorizedError } from '@/src/entities/error/auth';
-import { GetUserRoleCountType, ReturnGetUserRoleCountType } from '@/src/entities/models/user';
-
+import {
+  UnauthenticatedError,
+  UnauthorizedError,
+} from '@/src/entities/error/auth';
+import {
+  GetUserRoleCountType,
+  ReturnGetUserRoleCountType,
+} from '@/src/entities/models/user';
 
 export type IGetUserRoleCountController = ReturnType<
   typeof getUserRoleCountController
 >;
 
-function presenter(userRole: GetUserRoleCountType): ReturnGetUserRoleCountType[]  {
-   const roles = Object.keys(userRole)
+function presenter(
+  userRole: GetUserRoleCountType
+): ReturnGetUserRoleCountType[] {
+  const roles = Object.keys(userRole);
 
-   const userRoleCount: ReturnGetUserRoleCountType[] = [];
+  const userRoleCount: ReturnGetUserRoleCountType[] = [];
 
-   roles.forEach(role => {
+  roles.forEach((role) => {
     userRoleCount.push({
-        text: role === "HelpProvider" ? 'Total no of help providers': 'Total no of account owners',
-        value: userRole[role].toString()
-    })
-   })
-  return  userRoleCount
+      text:
+        role === 'HelpProvider'
+          ? 'Total no of help providers'
+          : 'Total no of account owners',
+      value: userRole[role].toString(),
+    });
+  });
+  return userRoleCount;
 }
 
 export const getUserRoleCountController =
@@ -37,8 +47,8 @@ export const getUserRoleCountController =
       }
       const { userType } =
         await authenticationService.validateSession(sessionId);
-    
-      if(userType !== "Admin") {
+
+      if (userType !== 'Admin') {
         throw new UnauthorizedError('User must be admin');
       }
 

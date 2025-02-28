@@ -2,6 +2,8 @@ import { SignUpTwoSchemaType } from '@/src/entities/models/auth/sign-up-schema';
 import { ITransaction } from '@/src/entities/models/transaction';
 import {
   CreateUser,
+  GetAllUserParams,
+  GetAllUsersType,
   GetUserAccountStatusType,
   GetUserRoleCountType,
   User,
@@ -17,6 +19,7 @@ export interface IUsersRepository {
   getUserType(id: string): Promise<UserType | undefined>;
   getUserRoleCount(): Promise<GetUserRoleCountType>;
   getUserAccountStatus(): Promise<GetUserAccountStatusType>;
+  getAllUser(input: GetAllUserParams): Promise<GetAllUsersType>;
 
   getUserDetails(id: string): Promise<PUser | undefined>;
   getUserWorkDetails(id: string): Promise<IWorkDetail>;

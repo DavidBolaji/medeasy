@@ -104,6 +104,8 @@ import { IGetRequestStatController } from '@/src/adapters/request/get-request-st
 import { IGetRequestStatusUseCase } from '@/src/application/use-cases/request/get-request-stat-use-case';
 import { IGetMonthlyCompletedController } from '@/src/adapters/request/get-monthly-completed.controller';
 import { IGetMonthlyCompletedUseCase } from '@/src/application/use-cases/request/get-monthly-completed-use-case';
+import { IGetAllUserController } from '@/src/adapters/users/get-all-user.controller';
+import { IGetAllUserUseCase } from '@/src/application/use-cases/user/get-all-user-use-case';
 // localhost:3000/dashboard/help-provider/personal-details
 export const DI_SYMBOLS = {
   IAuthenticationService: Symbol.for('IAuthenticationService'),
@@ -182,6 +184,7 @@ export const DI_SYMBOLS = {
   ),
   IGetRequestStatController: Symbol.for('IGetRequestStatController'),
   IGetMonthlyCompletedController: Symbol.for('IGetMonthlyCompletedController'),
+  IGetAllUserController: Symbol.for('IGetAllUserController'),
 
   ISignUpUseCase: Symbol.for('ISignUpUseCase'),
   ISignUpAccountOwnerUseCase: Symbol.for('ISignUpAccountOwnerUseCase'),
@@ -243,6 +246,7 @@ export const DI_SYMBOLS = {
   IGetUserAccountStatusUseCase: Symbol.for('IGetUserAccountStatusUseCase'),
   IGetRequestStatUseCase: Symbol.for('IGetRequestStatUseCase'),
   IGetMonthlyCompletedUseCase: Symbol.for('IGetMonthlyCompletedUseCase'),
+  IGetAllUserUseCase: Symbol.for('IGetAllUserUseCase'),
 
   IUsersRepository: Symbol.for('IUsersRepository'),
   ICertificationRepository: Symbol.for('ICertificationRepository'),
@@ -308,6 +312,7 @@ export interface DI_RETURN_TYPES {
   IGetUserAccountStatusController: IGetUserAccountStatusController;
   IGetRequestStatController: IGetRequestStatController;
   IGetMonthlyCompletedController: IGetMonthlyCompletedController;
+  IGetAllUserController: IGetAllUserController;
 
   ISignUpUseCase: ISignUpUseCase;
   ISignUpAccountOwnerUseCase: ISignUpAccountOwnerUseCase;
@@ -351,6 +356,7 @@ export interface DI_RETURN_TYPES {
   IGetUserAccountStatusUseCase: IGetUserAccountStatusUseCase;
   IGetRequestStatUseCase: IGetRequestStatusUseCase;
   IGetMonthlyCompletedUseCase: IGetMonthlyCompletedUseCase;
+  IGetAllUserUseCase: IGetAllUserUseCase;
 
   IUsersRepository: IUsersRepository;
   ICertificationRepository: ICertificationRepository;

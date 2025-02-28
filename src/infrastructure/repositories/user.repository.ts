@@ -1,6 +1,8 @@
 import { IUsersRepository } from '@/src/application/repositories/user.repository.interface';
 import {
   CreateUser,
+  GetAllUserParams,
+  GetAllUsersType,
   GetUserAccountStatusType,
   GetUserRoleCountType,
   User,
@@ -114,13 +116,13 @@ export class UsersRepository implements IUsersRepository {
   async getUserRoleCount(): Promise<GetUserRoleCountType> {
     try {
       const result = await db.user.groupBy({
-        by: ['type'],
+        by: ['role'],
         _count: {
           id: true,
         },
       });
       const counts = Object.fromEntries(
-        result.map(({ type, _count }) => [type, _count.id])
+        result.map(({ role, _count }) => [role, _count.id])
       );
       return counts;
     } catch (error) {
@@ -140,6 +142,48 @@ export class UsersRepository implements IUsersRepository {
         verified: verified._count.id,
         deleted: deleted._count.id,
       };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllUser({
+    page = 1,
+    limit = 10,
+    sort,
+    sortOrder,
+    searchQuery,
+  }: GetAllUserParams): Promise<GetAllUsersType> {
+    const skip = (page - 1) * limit;
+
+    const whereClause: Prisma.UserWhereInput = {
+      AND: [
+        ...(searchQuery
+          ? [
+              {
+                OR: [
+                  { fname: { contains: searchQuery } },
+                  { email: { contains: searchQuery } },
+                ],
+              },
+            ]
+          : []),
+      ],
+    };
+
+    const orderBy: Prisma.UserOrderByWithRelationInput = {
+      [sort as string]: sortOrder as Prisma.SortOrder,
+    };
+    try {
+      const totalItems = await db.user.count({ where: whereClause });
+      const users = await db.user.findMany({
+        where: whereClause,
+        skip,
+        take: limit,
+        orderBy,
+      });
+      const totalPages = Math.ceil(totalItems / limit);
+      return { users: users ?? [], totalPages };
     } catch (error) {
       throw error;
     }

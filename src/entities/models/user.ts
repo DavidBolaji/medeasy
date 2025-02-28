@@ -1,5 +1,6 @@
 import { allSignUpSchemaType } from './auth/sign-up-schema';
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType } from 'react';
+import { User as PUser, ROLE } from '@prisma/client';
 
 export interface User {
   id: string;
@@ -38,3 +39,24 @@ export type ReturnGetUserAccountStatusType = {
   title: string;
   value: string;
 };
+
+export interface GetAllUserParams {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  sortOrder?: string;
+  searchQuery?: string;
+}
+
+export interface Customer {
+  id: string;
+  fname: string;
+  lname: string;
+  email: string;
+  role: ROLE;
+  verified: boolean;
+  createdAt: string;
+}
+
+export type GetAllUsersType = { users: PUser[]; totalPages: number };
+export type ReturnGetAllUsersType = { users: Customer[]; totalPages: number };
