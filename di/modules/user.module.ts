@@ -12,6 +12,8 @@ import { getUserAccountStatusController } from '@/src/adapters/users/get-user-ac
 import { getUserAccountStatusUseCase } from '@/src/application/use-cases/user/get-user-account-status-use-case';
 import { getAllUserController } from '@/src/adapters/users/get-all-user.controller';
 import { getAllUserUseCase } from '@/src/application/use-cases/user/get-all-user-use-case';
+import { getDetailWithIdUseCase } from '@/src/application/use-cases/user/get-details-with-id-use-case';
+import { getDetailWithIdController } from '@/src/adapters/users/get-details-with-id.controller';
 
 export function createUsersModule() {
   const usersModule = createModule();
@@ -24,6 +26,12 @@ export function createUsersModule() {
   usersModule
     .bind(DI_SYMBOLS.IGetDetailsForUserUseCase)
     .toHigherOrderFunction(getDetailForUserUseCase, [
+      DI_SYMBOLS.IUsersRepository,
+    ]);
+
+  usersModule
+    .bind(DI_SYMBOLS.IGetDetailsWithIdUseCase)
+    .toHigherOrderFunction(getDetailWithIdUseCase, [
       DI_SYMBOLS.IUsersRepository,
     ]);
 
@@ -62,6 +70,13 @@ export function createUsersModule() {
     .toHigherOrderFunction(getDetailForUserController, [
       DI_SYMBOLS.IAuthenticationService,
       DI_SYMBOLS.IGetDetailsForUserUseCase,
+    ]);
+
+  usersModule
+    .bind(DI_SYMBOLS.IGetDetailsWithIdController)
+    .toHigherOrderFunction(getDetailWithIdController, [
+      DI_SYMBOLS.IAuthenticationService,
+      DI_SYMBOLS.IGetDetailsWithIdUseCase,
     ]);
 
   usersModule

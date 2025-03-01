@@ -37,12 +37,18 @@ const useBank = () => {
     }
   }, [bankList, getAllBanks]);
 
+  const getBankName = (code: string) => {
+    if (bankList?.length)
+      return bankList?.find((bank) => bank.key === code)?.label;
+    return 'None';
+  };
+
   // Memoize the bank list to avoid unnecessary recalculation
   const memoizedBankList = useMemo(() => {
     return bankList || [];
   }, [bankList]);
 
-  return { bankList: memoizedBankList };
+  return { bankList: memoizedBankList, getBankName };
 };
 
 export default useBank;

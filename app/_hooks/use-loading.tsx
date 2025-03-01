@@ -1,7 +1,5 @@
 import { UIStates } from '@/config';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getBanks } from '../_components/forms/auth/actions';
-import { useCallback } from 'react';
 
 const useLoading = () => {
   const queryClient = useQueryClient();

@@ -176,6 +176,22 @@ export const serviceSchema = z.object({
 
 export type ServiceSchemaType = z.infer<typeof serviceSchema>;
 
+export const servicewithoutFormSchema = z
+  .array(
+    z.object({
+      name: z.string().min(1, 'Service name is required'),
+      experience: z.string().min(1, 'Service experience is required'),
+      duration: z
+        .string()
+        .regex(/^\d+$/, { message: 'Experience length must be a number' }),
+    })
+  )
+  .nonempty({ message: 'At least one service is required' });
+
+export type ServiceWithoutFormSchemaType = z.infer<
+  typeof servicewithoutFormSchema
+>;
+
 // Base schema for work/professional details
 export const worSchema = z.object({
   cv: z.string().url({ message: 'Invalid CV URL' }),

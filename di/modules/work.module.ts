@@ -4,6 +4,8 @@ import { getWorkForUserController } from '@/src/adapters/work/get-work-for-user.
 import { getWorkForUserUseCase } from '@/src/application/use-cases/work/get-work-for-user-use-case';
 import { updateWorkForUserUseCase } from '@/src/application/use-cases/work/update-work-for-user-use-case';
 import { updateWorkForUserController } from '@/src/adapters/work/update-work-for-user.controller';
+import { getWorkWithIdUseCase } from '@/src/application/use-cases/work/get-work-with-id-use-case';
+import { getWorkWithIdController } from '@/src/adapters/work/get-work-with-id.controller';
 
 export function createWorkModule() {
   const workModule = createModule();
@@ -27,8 +29,22 @@ export function createWorkModule() {
     ]);
 
   workModule
+    .bind(DI_SYMBOLS.IGetWorkWithIdController)
+    .toHigherOrderFunction(getWorkWithIdController, [
+      DI_SYMBOLS.IGetWorkWithIdUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  workModule
     .bind(DI_SYMBOLS.IGetWorkForUserUseCase)
     .toHigherOrderFunction(getWorkForUserUseCase, [
+      DI_SYMBOLS.IUsersRepository,
+      DI_SYMBOLS.ICertificationRepository,
+    ]);
+
+  workModule
+    .bind(DI_SYMBOLS.IGetWorkWithIdUseCase)
+    .toHigherOrderFunction(getWorkWithIdUseCase, [
       DI_SYMBOLS.IUsersRepository,
       DI_SYMBOLS.ICertificationRepository,
     ]);

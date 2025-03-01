@@ -10,6 +10,8 @@ import { updateVerificationForUserController } from '@/src/adapters/verification
 import { updateVerificationForUserUseCase } from '@/src/application/use-cases/verification/update-verification-for-user-use-case';
 import { updateIDVerificationForUserUseCase } from '@/src/application/use-cases/verification/update-id-verification-for-user-use-case';
 import { updateIDVerificationForUserController } from '@/src/adapters/verification/update-id-verification-for-user.controller';
+import { getVerificationWithIdUseCase } from '@/src/application/use-cases/verification/get-verification-with-id-use-case';
+import { getVerificationWithIdController } from '@/src/adapters/verification/get-verification-with-id.controller';
 
 export function createVerificationModule() {
   const verificationModule = createModule();
@@ -44,6 +46,14 @@ export function createVerificationModule() {
     ]);
 
   verificationModule
+    .bind(DI_SYMBOLS.IGetVerificationWithIdUseCase)
+    .toHigherOrderFunction(getVerificationWithIdUseCase, [
+      DI_SYMBOLS.IVerificationRepository,
+      DI_SYMBOLS.IVerificationService,
+      DI_SYMBOLS.IUsersRepository,
+    ]);
+
+  verificationModule
     .bind(DI_SYMBOLS.IUpdateVerificationForUserUseCase)
     .toHigherOrderFunction(updateVerificationForUserUseCase, [
       DI_SYMBOLS.IVerificationRepository,
@@ -67,6 +77,13 @@ export function createVerificationModule() {
     .bind(DI_SYMBOLS.IGetVerificationForUserController)
     .toHigherOrderFunction(getVerificationForUserController, [
       DI_SYMBOLS.IGetVerificationForUserUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  verificationModule
+    .bind(DI_SYMBOLS.IGetVerificationWithIdController)
+    .toHigherOrderFunction(getVerificationWithIdController, [
+      DI_SYMBOLS.IGetVerificationWithIdUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

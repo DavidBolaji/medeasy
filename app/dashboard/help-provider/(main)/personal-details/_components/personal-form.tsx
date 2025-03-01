@@ -15,7 +15,6 @@ import FormikCalenderInput from '@/app/_components/input/formik-calender-input';
 import { Button } from '@/app/_components/ui/button';
 import { updatePersonalDetails } from '../action';
 import { Loader2 } from 'lucide-react';
-import { format } from 'date-fns';
 
 function PersonalDetailsForm({
   initialValues,

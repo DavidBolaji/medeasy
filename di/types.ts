@@ -106,6 +106,16 @@ import { IGetMonthlyCompletedController } from '@/src/adapters/request/get-month
 import { IGetMonthlyCompletedUseCase } from '@/src/application/use-cases/request/get-monthly-completed-use-case';
 import { IGetAllUserController } from '@/src/adapters/users/get-all-user.controller';
 import { IGetAllUserUseCase } from '@/src/application/use-cases/user/get-all-user-use-case';
+import { IGetDetailsWithIdController } from '@/src/adapters/users/get-details-with-id.controller';
+import { IGetDetailsWithIdUseCase } from '@/src/application/use-cases/user/get-details-with-id-use-case';
+import { IGetServiceWithIdUseCase } from '@/src/application/use-cases/service/get-service-with-id-use-case';
+import { IGetServiceWithIdController } from '@/src/adapters/services/get-service-with-id.controller';
+import { IGetWorkWithIdController } from '@/src/adapters/work/get-work-with-id.controller';
+import { IGetWorkWithIdUseCase } from '@/src/application/use-cases/work/get-work-with-id-use-case';
+import { IGetVerificationWithIdController } from '@/src/adapters/verification/get-verification-with-id.controller';
+import { IGetVerificationWithIdUseCase } from '@/src/application/use-cases/verification/get-verification-with-id-use-case';
+import { IGetPaymentsWithIdController } from '@/src/adapters/payment/get-payment-with-id.controller';
+import { IGetPaymentsWithIdUseCase } from '@/src/application/use-cases/payment/get-payment-with-id-use-case';
 // localhost:3000/dashboard/help-provider/personal-details
 export const DI_SYMBOLS = {
   IAuthenticationService: Symbol.for('IAuthenticationService'),
@@ -185,6 +195,13 @@ export const DI_SYMBOLS = {
   IGetRequestStatController: Symbol.for('IGetRequestStatController'),
   IGetMonthlyCompletedController: Symbol.for('IGetMonthlyCompletedController'),
   IGetAllUserController: Symbol.for('IGetAllUserController'),
+  IGetDetailsWithIdController: Symbol.for('IGetDetailsWithIdController'),
+  IGetServiceWithIdController: Symbol.for('IGetServiceWithIdController'),
+  IGetWorkWithIdController: Symbol.for('IGetWorkWithIdController'),
+  IGetVerificationWithIdController: Symbol.for(
+    'IGetVerificationWithIdController'
+  ),
+  IGetPaymentsWithIdController: Symbol.for('IGetPaymentsWithIdController'),
 
   ISignUpUseCase: Symbol.for('ISignUpUseCase'),
   ISignUpAccountOwnerUseCase: Symbol.for('ISignUpAccountOwnerUseCase'),
@@ -247,6 +264,11 @@ export const DI_SYMBOLS = {
   IGetRequestStatUseCase: Symbol.for('IGetRequestStatUseCase'),
   IGetMonthlyCompletedUseCase: Symbol.for('IGetMonthlyCompletedUseCase'),
   IGetAllUserUseCase: Symbol.for('IGetAllUserUseCase'),
+  IGetDetailsWithIdUseCase: Symbol.for('IGetDetailsWithIdUseCase'),
+  IGetServiceWithIdUseCase: Symbol.for('IGetServiceWithIdUseCase'),
+  IGetWorkWithIdUseCase: Symbol.for('IGetWorkWithIdUseCase'),
+  IGetVerificationWithIdUseCase: Symbol.for('IGetVerificationWithIdUseCase'),
+  IGetPaymentsWithIdUseCase: Symbol.for('IGetPaymentsWithIdUseCase'),
 
   IUsersRepository: Symbol.for('IUsersRepository'),
   ICertificationRepository: Symbol.for('ICertificationRepository'),
@@ -313,6 +335,11 @@ export interface DI_RETURN_TYPES {
   IGetRequestStatController: IGetRequestStatController;
   IGetMonthlyCompletedController: IGetMonthlyCompletedController;
   IGetAllUserController: IGetAllUserController;
+  IGetDetailsWithIdController: IGetDetailsWithIdController;
+  IGetServiceWithIdController: IGetServiceWithIdController;
+  IGetWorkWithIdController: IGetWorkWithIdController;
+  IGetVerificationWithIdController: IGetVerificationWithIdController;
+  IGetPaymentsWithIdController: IGetPaymentsWithIdController;
 
   ISignUpUseCase: ISignUpUseCase;
   ISignUpAccountOwnerUseCase: ISignUpAccountOwnerUseCase;
@@ -357,6 +384,11 @@ export interface DI_RETURN_TYPES {
   IGetRequestStatUseCase: IGetRequestStatusUseCase;
   IGetMonthlyCompletedUseCase: IGetMonthlyCompletedUseCase;
   IGetAllUserUseCase: IGetAllUserUseCase;
+  IGetDetailsWithIdUseCase: IGetDetailsWithIdUseCase;
+  IGetServiceWithIdUseCase: IGetServiceWithIdUseCase;
+  IGetWorkWithIdUseCase: IGetWorkWithIdUseCase;
+  IGetVerificationWithIdUseCase: IGetVerificationWithIdUseCase;
+  IGetPaymentsWithIdUseCase: IGetPaymentsWithIdUseCase;
 
   IUsersRepository: IUsersRepository;
   ICertificationRepository: ICertificationRepository;

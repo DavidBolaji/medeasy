@@ -5,6 +5,8 @@ import { getServiceForUserController } from '@/src/adapters/services/get-service
 import { getServiceForUserUseCase } from '@/src/application/use-cases/service/get-service-for-user-use-case';
 import { updateServiceForUserController } from '@/src/adapters/services/update-service-for-user.controller';
 import { updateServiceForUserUseCase } from '@/src/application/use-cases/service/update-service-for-user-use-case';
+import { getServiceWithIdUseCase } from '@/src/application/use-cases/service/get-service-with-id-use-case';
+import { getServiceWithIdController } from '@/src/adapters/services/get-service-with-id.controller';
 
 export function createServiceModule() {
   const serviceModule = createModule();
@@ -20,6 +22,12 @@ export function createServiceModule() {
   serviceModule
     .bind(DI_SYMBOLS.IGetServiceForUserUseCase)
     .toHigherOrderFunction(getServiceForUserUseCase, [
+      DI_SYMBOLS.IServiceRepository,
+    ]);
+
+  serviceModule
+    .bind(DI_SYMBOLS.IGetServiceWithIdUseCase)
+    .toHigherOrderFunction(getServiceWithIdUseCase, [
       DI_SYMBOLS.IServiceRepository,
     ]);
 
@@ -41,6 +49,13 @@ export function createServiceModule() {
     .toHigherOrderFunction(getServiceForUserController, [
       DI_SYMBOLS.IAuthenticationService,
       DI_SYMBOLS.IGetServiceForUserUseCase,
+    ]);
+
+  serviceModule
+    .bind(DI_SYMBOLS.IGetServiceWithIdController)
+    .toHigherOrderFunction(getServiceWithIdController, [
+      DI_SYMBOLS.IAuthenticationService,
+      DI_SYMBOLS.IGetServiceWithIdUseCase,
     ]);
 
   return serviceModule;

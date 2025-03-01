@@ -10,6 +10,8 @@ import { updatePaymentForUserUseCase } from '@/src/application/use-cases/payment
 import { updatepdatePaymentValidationForUserUseCase } from '@/src/application/use-cases/payment/update-payment-validation-use-case';
 import { updatePaymentValidationForUserController } from '@/src/adapters/payment/update-payment-validation.controller';
 import { getPaymentsForUserUseCase } from '@/src/application/use-cases/payment/get-payment-for-user-use-case';
+import { getPaymentsWithIdController } from '@/src/adapters/payment/get-payment-with-id.controller';
+import { getPaymentsWithIdUseCase } from '@/src/application/use-cases/payment/get-payment-with-id-use-case';
 
 export function createPaymentModule() {
   const paymentModule = createModule();
@@ -32,6 +34,14 @@ export function createPaymentModule() {
   paymentModule
     .bind(DI_SYMBOLS.IGetPaymentsForUserUseCase)
     .toHigherOrderFunction(getPaymentsForUserUseCase, [
+      DI_SYMBOLS.IPaymentRepository,
+      DI_SYMBOLS.IUsersRepository,
+      DI_SYMBOLS.IVerificationService,
+    ]);
+
+  paymentModule
+    .bind(DI_SYMBOLS.IGetPaymentsWithIdUseCase)
+    .toHigherOrderFunction(getPaymentsWithIdUseCase, [
       DI_SYMBOLS.IPaymentRepository,
       DI_SYMBOLS.IUsersRepository,
       DI_SYMBOLS.IVerificationService,
@@ -63,6 +73,13 @@ export function createPaymentModule() {
     .bind(DI_SYMBOLS.IGetPaymentsForUserController)
     .toHigherOrderFunction(getPaymentsForUserController, [
       DI_SYMBOLS.IGetPaymentsForUserUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  paymentModule
+    .bind(DI_SYMBOLS.IGetPaymentsWithIdController)
+    .toHigherOrderFunction(getPaymentsWithIdController, [
+      DI_SYMBOLS.IGetPaymentsWithIdUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

@@ -34,16 +34,22 @@ export default async function Dashboard({
   ]);
 
   return (
-    <div className="bg-grey-200 p-4">
-      <ExistingUsersSection
-        data={userCount.data as ReturnGetUserRoleCountType[]}
-      />
-      <CustomerTable
-        initialCustomers={users?.data?.users ?? []}
-        totalPages={users?.data?.totalPages}
-        page={page}
-        itemsPerPage={limit}
-      />
+    <div
+      style={{
+        padding: '16px 16px 150px 16px',
+      }}
+    >
+      <div className="bg-grey-200 p-4">
+        <ExistingUsersSection
+          data={userCount.data as ReturnGetUserRoleCountType[]}
+        />
+        <CustomerTable
+          initialCustomers={users?.data?.users ?? []}
+          totalPages={users?.data?.totalPages}
+          page={page}
+          itemsPerPage={limit}
+        />
+      </div>
     </div>
   );
 }
