@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const CustomizedDot = (props: any) => {
   const { cx, cy, chartHeight } = props;
 
@@ -51,9 +51,7 @@ export default function CompletedChart({
 
   useEffect(() => {
     if (chartRef.current) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      const height = chartRef.current.offsetHeight;
+      const height = (chartRef.current as { offsetHeight: any }).offsetHeight;
       setChartHeight(height);
     }
   }, []);

@@ -1,13 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 'use client';
 
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { DateRange } from 'react-day-picker';
-import { FilterCollapse } from './filter-collapse';
-import { Category } from '@prisma/client';
+
 import { X } from 'lucide-react';
 import {} from 'date-fns';
 import { Button } from '@/app/_components/ui/button';
@@ -28,19 +24,19 @@ interface FilterDialogProps {
 export default function FilterDialog({
   open,
   onClose,
-  onFilter,
+  // onFilter,
 
-  calender,
-  payment,
-  status,
-  post,
-  pStatus,
-  pType,
-  calenderTxt,
+  // calender,
+  // payment,
+  // status,
+  // post,
+  // pStatus,
+  // pType,
+  // calenderTxt,
 }: FilterDialogProps) {
   const searchParams = useSearchParams();
   const btnRef = useRef<HTMLButtonElement | null>(null);
-  const [date, setDate] = useState<DateRange | undefined>({
+  const [, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
   });
@@ -62,26 +58,26 @@ export default function FilterDialog({
     }
   }, [searchParams]);
 
-  const isChecked = (name: string, value: string) => {
-    // console.log(name, value)
-    const paramValues = searchParams.getAll(name); // Get all values for the parameter
-    // console.log(paramValues)
-    return paramValues.includes(value); // Check if the value is in the list
-  };
+  // const isChecked = (name: string, value: string) => {
+  //   // console.log(name, value)
+  //   const paramValues = searchParams.getAll(name); // Get all values for the parameter
+  //   // console.log(paramValues)
+  //   return paramValues.includes(value); // Check if the value is in the list
+  // };
 
-  const handleFilter = (formData: FormData) => {
-    if (date) {
-      const adjustedFrom = date.from ? new Date(date.from) : undefined;
-      const adjustedTo = date.to ? new Date(date.to) : undefined;
+  // const handleFilter = (formData: FormData) => {
+  //   if (date) {
+  //     const adjustedFrom = date.from ? new Date(date.from) : undefined;
+  //     const adjustedTo = date.to ? new Date(date.to) : undefined;
 
-      if (adjustedFrom) adjustedFrom.setDate(adjustedFrom.getDate() + 1);
-      if (adjustedTo) adjustedTo.setDate(adjustedTo.getDate() + 1);
-      formData.append('dateFrom', adjustedFrom?.toISOString() || '');
-      formData.append('dateTo', adjustedTo?.toISOString() || '');
-      formData.append('dateTo', adjustedTo?.toISOString() || '');
-    }
-    onFilter(formData, searchParams);
-  };
+  //     if (adjustedFrom) adjustedFrom.setDate(adjustedFrom.getDate() + 1);
+  //     if (adjustedTo) adjustedTo.setDate(adjustedTo.getDate() + 1);
+  //     formData.append('dateFrom', adjustedFrom?.toISOString() || '');
+  //     formData.append('dateTo', adjustedTo?.toISOString() || '');
+  //     formData.append('dateTo', adjustedTo?.toISOString() || '');
+  //   }
+  //   // onFilter(formData, searchParams);
+  // };
 
   const handleReset = () => {
     // Clear the selected date range
@@ -103,14 +99,14 @@ export default function FilterDialog({
     // formData.append("dateFrom", "");
     // formData.append("dateTo", "");
     // Ensure `dateFrom` and `dateTo` are cleared from the current params
-    const params = new URLSearchParams(searchParams);
-    params.delete('dateFrom');
-    params.delete('dateTo');
-    onFilter(formData, params);
+    // const params = new URLSearchParams(searchParams);
+    // params.delete('dateFrom');
+    // params.delete('dateTo');
+    // onFilter(formData, params);
 
     // Trigger Apply to reset filters
     btnRef.current?.click();
-    onFilter(formData, params);
+    // onFilter(formData, params);
     // Optionally close the dialog
     onClose();
   };
