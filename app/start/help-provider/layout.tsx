@@ -12,9 +12,9 @@ export default async function HelpProviderLayout({
 }>) {
   const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
 
-  if (sessionId) {
-    redirect(`/dashboard/help-provider/home?active=new`);
-  }
+  // if (sessionId) {
+  //   redirect(`/dashboard/help-provider/home?active=new`);
+  // }
 
   return (
     <div>

@@ -116,6 +116,10 @@ import { IGetVerificationWithIdController } from '@/src/adapters/verification/ge
 import { IGetVerificationWithIdUseCase } from '@/src/application/use-cases/verification/get-verification-with-id-use-case';
 import { IGetPaymentsWithIdController } from '@/src/adapters/payment/get-payment-with-id.controller';
 import { IGetPaymentsWithIdUseCase } from '@/src/application/use-cases/payment/get-payment-with-id-use-case';
+import { IUpdateUserVerificationController } from '@/src/adapters/users/update-user-verification.controller';
+import { IUpdateUserVerificationUseCase } from '@/src/application/use-cases/user/update-user-verification-use-case';
+import { IGetReviewsWithIdUseCase } from '@/src/application/use-cases/review/get-review-with-id-use-case';
+import { IGetReviewsWithIdController } from '@/src/adapters/review/get-review-with-id.controller';
 // localhost:3000/dashboard/help-provider/personal-details
 export const DI_SYMBOLS = {
   IAuthenticationService: Symbol.for('IAuthenticationService'),
@@ -202,6 +206,10 @@ export const DI_SYMBOLS = {
     'IGetVerificationWithIdController'
   ),
   IGetPaymentsWithIdController: Symbol.for('IGetPaymentsWithIdController'),
+  IUpdateUserVerificationController: Symbol.for(
+    'IUpdateUserVerificationController'
+  ),
+  IGetReviewsWithIdController: Symbol.for('IGetReviewsWithIdController'),
 
   ISignUpUseCase: Symbol.for('ISignUpUseCase'),
   ISignUpAccountOwnerUseCase: Symbol.for('ISignUpAccountOwnerUseCase'),
@@ -269,6 +277,8 @@ export const DI_SYMBOLS = {
   IGetWorkWithIdUseCase: Symbol.for('IGetWorkWithIdUseCase'),
   IGetVerificationWithIdUseCase: Symbol.for('IGetVerificationWithIdUseCase'),
   IGetPaymentsWithIdUseCase: Symbol.for('IGetPaymentsWithIdUseCase'),
+  IUpdateUserVerificationUseCase: Symbol.for('IUpdateUserVerificationUseCase'),
+  IGetReviewsWithIdUseCase: Symbol.for('IGetReviewsWithIdUseCase'),
 
   IUsersRepository: Symbol.for('IUsersRepository'),
   ICertificationRepository: Symbol.for('ICertificationRepository'),
@@ -340,6 +350,8 @@ export interface DI_RETURN_TYPES {
   IGetWorkWithIdController: IGetWorkWithIdController;
   IGetVerificationWithIdController: IGetVerificationWithIdController;
   IGetPaymentsWithIdController: IGetPaymentsWithIdController;
+  IUpdateUserVerificationController: IUpdateUserVerificationController;
+  IGetReviewsWithIdController: IGetReviewsWithIdController;
 
   ISignUpUseCase: ISignUpUseCase;
   ISignUpAccountOwnerUseCase: ISignUpAccountOwnerUseCase;
@@ -389,6 +401,8 @@ export interface DI_RETURN_TYPES {
   IGetWorkWithIdUseCase: IGetWorkWithIdUseCase;
   IGetVerificationWithIdUseCase: IGetVerificationWithIdUseCase;
   IGetPaymentsWithIdUseCase: IGetPaymentsWithIdUseCase;
+  IUpdateUserVerificationUseCase: IUpdateUserVerificationUseCase;
+  IGetReviewsWithIdUseCase: IGetReviewsWithIdUseCase;
 
   IUsersRepository: IUsersRepository;
   ICertificationRepository: ICertificationRepository;

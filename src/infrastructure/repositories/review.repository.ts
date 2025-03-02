@@ -2,6 +2,8 @@ import db from '@/prisma';
 import { IReviewRepository } from '@/src/application/repositories/review.repository.interface';
 import {
   CreateReviwSchemaType,
+  ReturnReviewsWithIdType,
+  ReviewsWithId,
   UpdateReviwSchemaType,
 } from '@/src/entities/models/review';
 import { ITransaction } from '@/src/entities/models/transaction';
@@ -30,6 +32,25 @@ export class ReviewRepository implements IReviewRepository {
         },
       });
       return review[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getReviewsWithId(userId: string): Promise<ReviewsWithId[]> {
+    try {
+      const reviews = await db.reviews.findMany({
+        where: { receivedId: userId },
+        include: {
+          reviewer: {
+            select: {
+              fname: true,
+              lname: true,
+            },
+          },
+        },
+      });
+      return reviews;
     } catch (error) {
       throw error;
     }

@@ -80,7 +80,11 @@ export default function CustomerTableRow({
           variant="outline"
           className={cn('capitalize rounded-full font-instrument font-normal')}
         >
-          {customer.verified ? 'Verified' : 'Unverified'}
+          {customer.verified === 'TRUE'
+            ? 'Verified'
+            : customer.verified === 'FALSE'
+              ? 'Rejected'
+              : 'Unverified'}
         </Badge>
       </TableCell>
       <TableCell className="py-3">

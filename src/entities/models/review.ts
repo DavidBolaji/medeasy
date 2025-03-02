@@ -1,3 +1,4 @@
+import { Reviews } from '@prisma/client';
 import { z } from 'zod';
 
 export const reviwFormSchema = z.object({
@@ -38,3 +39,14 @@ export const returnSingleReviwSchema = reviwFormSchema.merge(
 export type ReturnSingleReviewSchemaType = z.infer<
   typeof returnSingleReviwSchema
 >;
+
+export type ReviewsWithId = Reviews & {
+  reviewer: { fname: string; lname: string };
+};
+
+export type ReturnReviewsWithIdType = Pick<
+  Reviews,
+  'description' | 'title' | 'star'
+> & {
+  reviewer: { fname: string; lname: string };
+};

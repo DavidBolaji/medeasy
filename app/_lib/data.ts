@@ -212,6 +212,29 @@ export const tabList = [
   },
 ];
 
+export const profileList = [
+  {
+    key: 'details',
+    label: 'Personal Details',
+  },
+  {
+    key: 'work',
+    label: 'Experience',
+  },
+  {
+    key: 'verification',
+    label: 'Identity',
+  },
+  {
+    key: 'payment',
+    label: 'Payment details',
+  },
+  {
+    key: 'reviews',
+    label: 'Reviews',
+  },
+];
+
 export const offertabList = [
   {
     key: 'details',

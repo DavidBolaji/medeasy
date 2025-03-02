@@ -11,9 +11,9 @@ export default async function AccountOwnerLayout({
 }>) {
   const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
 
-  if (sessionId) {
-    redirect(`/dashboard/account-owner/home?active=new`);
-  }
+  // if (sessionId) {
+  //   redirect(`/dashboard/account-owner/home?active=new`);
+  // }
   return (
     <div>
       <StartNav />

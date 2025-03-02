@@ -13,6 +13,7 @@ import {
   SignUpTwoSchemaType,
   WorkSchemaType,
 } from '@/src/entities/models/auth/sign-up-schema';
+import { ReturnReviewsWithIdType } from '@/src/entities/models/review';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -145,6 +146,35 @@ export async function getPaymentWithId(id: string): Promise<{
     return {
       success: true,
       data: response as unknown as SignUpFiveSchemaType,
+    };
+  } catch (error) {
+    if (
+      error instanceof UnauthenticatedError ||
+      error instanceof AuthenticationError
+    ) {
+      redirect('/dashboard/admin');
+    }
+    return {
+      success: false,
+      error: 'Something went wrong',
+    };
+  }
+}
+
+export async function getReviewsWithId(id: string): Promise<{
+  success: boolean;
+  error?: string;
+  data?: ReturnReviewsWithIdType[];
+}> {
+  const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
+  try {
+    const getReviewsWithIdController = getInjection(
+      'IGetReviewsWithIdController'
+    );
+    const response = await getReviewsWithIdController(id, sessionId);
+    return {
+      success: true,
+      data: response as unknown as ReturnReviewsWithIdType[],
     };
   } catch (error) {
     if (

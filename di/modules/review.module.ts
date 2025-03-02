@@ -8,6 +8,8 @@ import { getSingleReviewController } from '@/src/adapters/review/get-single-reve
 import { getSingleReviewUseCase } from '@/src/application/use-cases/review/get-single-review-use-case';
 import { updateReviewController } from '@/src/adapters/review/update-review.controller';
 import { updateReviewUseCase } from '@/src/application/use-cases/review/update-review-use-case';
+import { getReviewsWithIdController } from '@/src/adapters/review/get-review-with-id.controller';
+import { getReviewsWithIdUseCase } from '@/src/application/use-cases/review/get-review-with-id-use-case';
 
 export function createReviewnModule() {
   const reviewModule = createModule();
@@ -30,6 +32,12 @@ export function createReviewnModule() {
     ]);
 
   reviewModule
+    .bind(DI_SYMBOLS.IGetReviewsWithIdUseCase)
+    .toHigherOrderFunction(getReviewsWithIdUseCase, [
+      DI_SYMBOLS.IReviewRepository,
+    ]);
+
+  reviewModule
     .bind(DI_SYMBOLS.IUpdateReviewUseCase)
     .toHigherOrderFunction(updateReviewUseCase, [DI_SYMBOLS.IReviewRepository]);
 
@@ -45,6 +53,13 @@ export function createReviewnModule() {
     .bind(DI_SYMBOLS.IGetSingleReviewController)
     .toHigherOrderFunction(getSingleReviewController, [
       DI_SYMBOLS.IGetSingleReviewUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  reviewModule
+    .bind(DI_SYMBOLS.IGetReviewsWithIdController)
+    .toHigherOrderFunction(getReviewsWithIdController, [
+      DI_SYMBOLS.IGetReviewsWithIdUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

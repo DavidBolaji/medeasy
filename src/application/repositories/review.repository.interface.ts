@@ -1,5 +1,6 @@
 import {
   CreateReviwSchemaType,
+  ReviewsWithId,
   UpdateReviwSchemaType,
 } from '@/src/entities/models/review';
 import { ITransaction } from '@/src/entities/models/transaction';
@@ -11,6 +12,7 @@ export interface IReviewRepository {
     requestId: string,
     userId: string
   ): Promise<Reviews>;
+  getReviewsWithId(userId: string): Promise<ReviewsWithId[]>;
 
   updateReview(input: UpdateReviwSchemaType): Promise<void>;
   createReview(

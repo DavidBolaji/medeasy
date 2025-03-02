@@ -14,6 +14,8 @@ import { getAllUserController } from '@/src/adapters/users/get-all-user.controll
 import { getAllUserUseCase } from '@/src/application/use-cases/user/get-all-user-use-case';
 import { getDetailWithIdUseCase } from '@/src/application/use-cases/user/get-details-with-id-use-case';
 import { getDetailWithIdController } from '@/src/adapters/users/get-details-with-id.controller';
+import { updateUserVerificationUseCase } from '@/src/application/use-cases/user/update-user-verification-use-case';
+import { updateUserVerificationController } from '@/src/adapters/users/update-user-verification.controller';
 
 export function createUsersModule() {
   const usersModule = createModule();
@@ -42,6 +44,12 @@ export function createUsersModule() {
     ]);
 
   usersModule
+    .bind(DI_SYMBOLS.IUpdateUserVerificationUseCase)
+    .toHigherOrderFunction(updateUserVerificationUseCase, [
+      DI_SYMBOLS.IUsersRepository,
+    ]);
+
+  usersModule
     .bind(DI_SYMBOLS.IGetUserRoleCountUseCase)
     .toHigherOrderFunction(getUserRoleCountUseCase, [
       DI_SYMBOLS.IUsersRepository,
@@ -62,6 +70,13 @@ export function createUsersModule() {
     .bind(DI_SYMBOLS.IUpdateDetailsForUserController)
     .toHigherOrderFunction(updateDetailForUserController, [
       DI_SYMBOLS.IUpdateDetailsForUserUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  usersModule
+    .bind(DI_SYMBOLS.IUpdateUserVerificationController)
+    .toHigherOrderFunction(updateUserVerificationController, [
+      DI_SYMBOLS.IUpdateUserVerificationUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

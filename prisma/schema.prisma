@@ -35,6 +35,12 @@ enum Stage {
   CANCELLED
 }
 
+enum Verified {
+  TRUE
+  FALSE
+  PENDING
+}
+
 model Address {
   id      String  @id @default(uuid())
   country String
@@ -210,7 +216,7 @@ model User {
   role       ROLE
   type       UserType @default(User)
   address    Address?
-  verified   Boolean  @default(false)
+  verified   Verified  @default(PENDING)
   deleted    Boolean  @default(false)
 
   services       Service[]

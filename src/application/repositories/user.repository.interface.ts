@@ -6,6 +6,7 @@ import {
   GetAllUsersType,
   GetUserAccountStatusType,
   GetUserRoleCountType,
+  UpdateUserVerification,
   User,
   UserWithPassword,
 } from '@/src/entities/models/user';
@@ -25,5 +26,6 @@ export interface IUsersRepository {
   getUserWorkDetails(id: string): Promise<IWorkDetail>;
   updateUserDetails(user: SignUpTwoSchemaType, userId: string): Promise<void>;
   updateWorkDetails(work: IWorkDetail, id: string): Promise<void>;
+  updateVerification(input: UpdateUserVerification): Promise<void>;
   createUser(input: CreateUser, tx?: ITransaction): Promise<User>;
 }

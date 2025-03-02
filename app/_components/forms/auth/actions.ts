@@ -2,10 +2,7 @@
 
 import { getInjection } from '@/di/container';
 import { AuthenticationError } from '@/src/entities/error/auth';
-import {
-  InputParseError,
-  PrismaError,
-} from '@/src/entities/error/common';
+import { InputParseError, PrismaError } from '@/src/entities/error/common';
 import { signInSchemaType } from '@/src/entities/models/auth/login-schema';
 import {
   allSignUppAccountOwnerSchemaType,
@@ -44,14 +41,14 @@ export async function signUp(data: allSignUpSchemaType) {
     ) {
       return {
         success: false,
-        error: (error as Error).message
-      }
+        error: (error as Error).message,
+      };
     }
     console.log((error as Error).message);
     return {
       success: false,
-      error: "Something went wrong"
-    }
+      error: 'Something went wrong',
+    };
   }
 
   redirect('/dashboard/help-provider/success');
@@ -85,8 +82,8 @@ export async function signUpAccountOwner(
     ) {
       return {
         success: false,
-        error: (error as Error).message
-      }
+        error: (error as Error).message,
+      };
     }
 
     if (
@@ -95,13 +92,13 @@ export async function signUpAccountOwner(
     )
       return {
         success: false,
-        error: "User with id exist"
-      }
+        error: 'User with id exist',
+      };
 
     return {
       success: false,
-      error: (error as Error).message
-    }
+      error: (error as Error).message,
+    };
   }
 
   redirect('/dashboard/account-owner/success');
@@ -127,17 +124,15 @@ export async function signIn(data: signInSchemaType, role: ROLE) {
     ) {
       return {
         success: false,
-        error: error.message
-      }
-
+        error: error.message,
+      };
     }
 
+    console.log((error as Error).message);
     return {
       success: false,
-      error: "Something went wrong"
-    }
-
-
+      error: 'Something went wrong',
+    };
   }
   redirect(`/dashboard/${[roleHashValue[role]]}/home?active=new`);
 }
@@ -195,7 +190,7 @@ export async function getBanks() {
   } catch (err) {
     return {
       success: false,
-      error: (err as Error).message
-    }
+      error: (err as Error).message,
+    };
   }
 }

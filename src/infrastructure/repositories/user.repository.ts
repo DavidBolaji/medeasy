@@ -5,6 +5,7 @@ import {
   GetAllUsersType,
   GetUserAccountStatusType,
   GetUserRoleCountType,
+  UpdateUserVerification,
   User,
   UserWithPassword,
 } from '@/src/entities/models/user';
@@ -133,8 +134,14 @@ export class UsersRepository implements IUsersRepository {
   async getUserAccountStatus(): Promise<GetUserAccountStatusType> {
     try {
       const [total, verified, deleted] = await Promise.all([
-        db.user.aggregate({ where: { verified: false }, _count: { id: true } }),
-        db.user.aggregate({ where: { verified: true }, _count: { id: true } }),
+        db.user.aggregate({
+          where: { OR: [{ verified: 'FALSE' }, { verified: 'PENDING' }] },
+          _count: { id: true },
+        }),
+        db.user.aggregate({
+          where: { verified: 'TRUE' },
+          _count: { id: true },
+        }),
         db.user.aggregate({ where: { deleted: true }, _count: { id: true } }),
       ]);
       return {
@@ -198,6 +205,19 @@ export class UsersRepository implements IUsersRepository {
         data: {
           cv: work.cv,
           medTrained: work.medTrained,
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateVerification(input: UpdateUserVerification): Promise<void> {
+    try {
+      await db.user.update({
+        where: { id: input.userId },
+        data: {
+          verified: input.verified,
         },
       });
     } catch (error) {

@@ -6,12 +6,14 @@ import {
   getVerificationWithId,
   getWorkWithId,
 } from '../action';
+import RejectModal from './_components/reject-modal';
 import RenderPaymentDetails from './_components/render-payment-details';
 import RenderPersonalDetails from './_components/render-personal-details';
 import RenderServiceDetails from './_components/render-service-details';
 import RenderVerificationDetails from './_components/render-verification-details';
 import RenderWorkDetails from './_components/render-work-details';
 import TopBar from './_components/top-bar';
+import VerifyModal from './_components/verify-modal';
 
 interface VerifyUserPageParams {
   params: { verifyUserId: string };
@@ -57,6 +59,8 @@ export default async function VerifyUserPage({ params }: VerifyUserPageParams) {
         <RenderVerificationDetails verification={verification.data} />
         <RenderPaymentDetails payment={payment.data} />
       </div>
+      <VerifyModal />
+      <RejectModal />
     </div>
   );
 }

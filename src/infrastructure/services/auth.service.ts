@@ -43,9 +43,12 @@ export class AuthenticationService implements IAuthenticationService {
     return await hash(inputPassword, PASSWORD_SALT_ROUNDS);
   }
 
-  async validateSession(
-    sessionId: string
-  ): Promise<{ user: User; session: Session; role: ROLE | undefined, userType: UserType | undefined }> {
+  async validateSession(sessionId: string): Promise<{
+    user: User;
+    session: Session;
+    role: ROLE | undefined;
+    userType: UserType | undefined;
+  }> {
     const result = await this._lucia.validateSession(sessionId);
 
     if (!result.user || !result.session) {
@@ -59,10 +62,9 @@ export class AuthenticationService implements IAuthenticationService {
     }
 
     const [role, userType] = await Promise.all([
-      this._usersRepository.getUserRole(result.user.id),
-      this._usersRepository.getUserType(result.user.id)
-
-    ])
+      this._usersRepository.getUserRole(result?.user?.id),
+      this._usersRepository.getUserType(result?.user?.id),
+    ]);
 
     return { user, session: result.session, role, userType };
   }

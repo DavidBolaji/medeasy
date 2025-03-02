@@ -1,6 +1,6 @@
 import { allSignUpSchemaType } from './auth/sign-up-schema';
 import { ComponentType } from 'react';
-import { User as PUser, ROLE } from '@prisma/client';
+import { User as PUser, ROLE, Verified } from '@prisma/client';
 
 export interface User {
   id: string;
@@ -54,9 +54,14 @@ export interface Customer {
   lname: string;
   email: string;
   role: ROLE;
-  verified: boolean;
+  verified: Verified;
   createdAt: string;
 }
 
 export type GetAllUsersType = { users: PUser[]; totalPages: number };
 export type ReturnGetAllUsersType = { users: Customer[]; totalPages: number };
+
+export interface UpdateUserVerification {
+  userId: string;
+  verified: Verified;
+}

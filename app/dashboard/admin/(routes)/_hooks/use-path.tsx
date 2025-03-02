@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 const usePath = () => {
   const pathname = usePathname();
   const params = useParams();
-  const customerId = params?.customerId;
-  const orderId = params?.orderId;
+  const userId = params?.userId;
   const verifyUserId = params?.verifyUserId;
+  const customerId = params?.customerId;
   const promotionId = params?.promotionId;
   const blogId = params?.blogId;
   const faqId = params?.faqId;
@@ -19,7 +19,7 @@ const usePath = () => {
         ? '/dashboard/admin/home'
         : pathname === '/dashboard/admin/user-management'
           ? '/dashboard/admin/user-management'
-          : pathname === '/dashboard/admin/user-management/add'
+          : pathname === `/dashboard/admin/user-management/${userId}`
             ? '/dashboard/admin/user-management'
             : pathname ===
                 `/dashboard/admin/user-management/verify/${verifyUserId}`
@@ -38,35 +38,32 @@ const usePath = () => {
                         ? '/dashboard/admin/help-requests'
                         : pathname === `/dashboard/admin/communication`
                           ? '/dashboard/admin/communication'
-                          : pathname === `/dashboard/admin/payment/${orderId}`
-                            ? '/dashboard/admin/payment'
-                            : pathname === `/dashboard/admin/communication/add`
+                          : pathname === `/dashboard/admin/communication/add`
+                            ? '/dashboard/admin/communication'
+                            : pathname ===
+                                `/dashboard/admin/communication/${promotionId}`
                               ? '/dashboard/admin/communication'
                               : pathname ===
-                                  `/dashboard/admin/communication/${promotionId}`
+                                  `/dashboard/admin/communication/${promotionId}/edit`
                                 ? '/dashboard/admin/communication'
-                                : pathname ===
-                                    `/dashboard/admin/communication/${promotionId}/edit`
-                                  ? '/dashboard/admin/communication'
-                                  : pathname === `/dashboard/admin/settings`
+                                : pathname === `/dashboard/admin/settings`
+                                  ? '/dashboard/admin/settings'
+                                  : pathname === '/dashboard/admin/settings/add'
                                     ? '/dashboard/admin/settings'
                                     : pathname ===
-                                        '/dashboard/admin/settings/add'
+                                        `/dashboard/admin/settings/${blogId}/edit`
                                       ? '/dashboard/admin/settings'
                                       : pathname ===
-                                          `/dashboard/admin/settings/${blogId}/edit`
+                                          `/dashboard/admin/settings/faq/${faqId}/edit`
                                         ? '/dashboard/admin/settings'
                                         : pathname ===
-                                            `/dashboard/admin/settings/faq/${faqId}/edit`
+                                            `/dashboard/admin/settings/faq/add`
                                           ? '/dashboard/admin/settings'
-                                          : pathname ===
-                                              `/dashboard/admin/settings/faq/add`
-                                            ? '/dashboard/admin/settings'
-                                            : pathname?.split('/')[
-                                                pathname?.split('/').length - 1
-                                              ];
+                                          : pathname?.split('/')[
+                                              pathname?.split('/').length - 1
+                                            ];
     setLoc(key);
-  }, [pathname, customerId, orderId, promotionId, blogId, faqId, verifyUserId]);
+  }, [pathname, customerId, userId, promotionId, blogId, faqId, verifyUserId]);
 
   return { locationCurrent };
 };
