@@ -48,7 +48,9 @@ const RenderPersonalDetails: React.FC<RenderPersonalDetailsProps> = ({
               Date of birth
             </Typography>
             <Typography className="font-normal text-black text-base">
-              {format(details?.dob as string, 'd MMMM, yyyy')}
+              {!details?.dob
+                ? null
+                : format(details?.dob as string, 'd MMMM, yyyy')}
             </Typography>
           </div>
         </div>

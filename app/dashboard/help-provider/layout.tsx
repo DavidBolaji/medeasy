@@ -12,16 +12,19 @@ export default async function HelpProviderDashboardLayout({
   children,
 }: PropsWithChildren) {
   const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
+
+  if (!sessionId) {
+    return redirect('/start/help-provider/sign-in');
+  }
+
   try {
     const role = await getUserRole(sessionId);
 
     if (role !== 'HelpProvider') {
-      throw new UnauthorizedError('Unauthorized');
+      return redirect('/start/help-provider/sign-in');
     }
   } catch (error) {
     console.log((error as Error).message);
-
-    return redirect('/start/help-provider/sign-in');
   }
   return <div>{children}</div>;
 }

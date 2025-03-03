@@ -9,15 +9,17 @@ export default async function AccountOwnerDashboardLayout({
   children,
 }: PropsWithChildren) {
   const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
+  if (!sessionId) {
+    return redirect('/start/account-owner/sign-in');
+  }
   try {
     const role = await getUserRole(sessionId);
 
     if (role !== 'AccountOwner') {
-      throw new UnauthorizedError('Unauthorized');
+      return redirect('/start/account-owner/sign-in');
     }
   } catch (error) {
     console.log((error as Error).message);
-    redirect('/start/account-owner/sign-in');
   }
   return <div>{children}</div>;
 }

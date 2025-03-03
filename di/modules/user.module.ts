@@ -16,6 +16,8 @@ import { getDetailWithIdUseCase } from '@/src/application/use-cases/user/get-det
 import { getDetailWithIdController } from '@/src/adapters/users/get-details-with-id.controller';
 import { updateUserVerificationUseCase } from '@/src/application/use-cases/user/update-user-verification-use-case';
 import { updateUserVerificationController } from '@/src/adapters/users/update-user-verification.controller';
+import { deleteUserAccountController } from '@/src/adapters/users/delete-user-account.controller';
+import { deleteUserAccountUseCase } from '@/src/application/use-cases/user/delete-user-account-use-case';
 
 export function createUsersModule() {
   const usersModule = createModule();
@@ -64,6 +66,12 @@ export function createUsersModule() {
   usersModule
     .bind(DI_SYMBOLS.IGetAllUserUseCase)
     .toHigherOrderFunction(getAllUserUseCase, [DI_SYMBOLS.IUsersRepository]);
+
+  usersModule
+    .bind(DI_SYMBOLS.IDeleteUserAccountUseCase)
+    .toHigherOrderFunction(deleteUserAccountUseCase, [
+      DI_SYMBOLS.IUsersRepository,
+    ]);
 
   // controller
   usersModule
@@ -118,6 +126,13 @@ export function createUsersModule() {
     .bind(DI_SYMBOLS.IGetAllUserController)
     .toHigherOrderFunction(getAllUserController, [
       DI_SYMBOLS.IGetAllUserUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  usersModule
+    .bind(DI_SYMBOLS.IDeleteUserAccountController)
+    .toHigherOrderFunction(deleteUserAccountController, [
+      DI_SYMBOLS.IDeleteUserAccountUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

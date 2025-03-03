@@ -27,5 +27,6 @@ export interface IUsersRepository {
   updateUserDetails(user: SignUpTwoSchemaType, userId: string): Promise<void>;
   updateWorkDetails(work: IWorkDetail, id: string): Promise<void>;
   updateVerification(input: UpdateUserVerification): Promise<void>;
+  deleteUserAccount(id: string): Promise<void>;
   createUser(input: CreateUser, tx?: ITransaction): Promise<User>;
 }

@@ -3,12 +3,21 @@ import { Content } from 'antd/es/layout/layout';
 import { Sidebar } from './_components/sidebar';
 import Loading from '@/app/_components/navigating';
 import { DashboardHeader } from './_components/dashboard-header';
+import { cookies } from 'next/headers';
+import { SESSION_COOKIE } from '@/config';
+import { redirect } from 'next/navigation';
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const sessionId = (await cookies()).get(SESSION_COOKIE)?.value;
+
+  if (!sessionId) {
+    return redirect('/dashboard/admin');
+  }
+
   return (
     <Layout
       style={{

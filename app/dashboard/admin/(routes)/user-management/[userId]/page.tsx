@@ -7,6 +7,7 @@ import {
   getVerificationWithId,
   getWorkWithId,
 } from '../verify/action';
+import DeleteModal from './_components/delete-modal';
 import RenderTabs from './_components/render-tabs';
 import TopBar from './_components/top-bar';
 
@@ -55,6 +56,7 @@ export default async function ViewUserPage({ params }: ManageUserPageParams) {
           reviews={reviews.data}
         />
       </div>
+      <DeleteModal />
     </div>
   );
 }

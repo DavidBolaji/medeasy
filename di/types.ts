@@ -120,6 +120,8 @@ import { IUpdateUserVerificationController } from '@/src/adapters/users/update-u
 import { IUpdateUserVerificationUseCase } from '@/src/application/use-cases/user/update-user-verification-use-case';
 import { IGetReviewsWithIdUseCase } from '@/src/application/use-cases/review/get-review-with-id-use-case';
 import { IGetReviewsWithIdController } from '@/src/adapters/review/get-review-with-id.controller';
+import { IDeleteUserAccountController } from '@/src/adapters/users/delete-user-account.controller';
+import { IDeleteUserAccountUseCase } from '@/src/application/use-cases/user/delete-user-account-use-case';
 // localhost:3000/dashboard/help-provider/personal-details
 export const DI_SYMBOLS = {
   IAuthenticationService: Symbol.for('IAuthenticationService'),
@@ -210,6 +212,7 @@ export const DI_SYMBOLS = {
     'IUpdateUserVerificationController'
   ),
   IGetReviewsWithIdController: Symbol.for('IGetReviewsWithIdController'),
+  IDeleteUserAccountController: Symbol.for('IDeleteUserAccountController'),
 
   ISignUpUseCase: Symbol.for('ISignUpUseCase'),
   ISignUpAccountOwnerUseCase: Symbol.for('ISignUpAccountOwnerUseCase'),
@@ -279,6 +282,7 @@ export const DI_SYMBOLS = {
   IGetPaymentsWithIdUseCase: Symbol.for('IGetPaymentsWithIdUseCase'),
   IUpdateUserVerificationUseCase: Symbol.for('IUpdateUserVerificationUseCase'),
   IGetReviewsWithIdUseCase: Symbol.for('IGetReviewsWithIdUseCase'),
+  IDeleteUserAccountUseCase: Symbol.for('IDeleteUserAccountUseCase'),
 
   IUsersRepository: Symbol.for('IUsersRepository'),
   ICertificationRepository: Symbol.for('ICertificationRepository'),
@@ -352,6 +356,7 @@ export interface DI_RETURN_TYPES {
   IGetPaymentsWithIdController: IGetPaymentsWithIdController;
   IUpdateUserVerificationController: IUpdateUserVerificationController;
   IGetReviewsWithIdController: IGetReviewsWithIdController;
+  IDeleteUserAccountController: IDeleteUserAccountController;
 
   ISignUpUseCase: ISignUpUseCase;
   ISignUpAccountOwnerUseCase: ISignUpAccountOwnerUseCase;
@@ -403,6 +408,7 @@ export interface DI_RETURN_TYPES {
   IGetPaymentsWithIdUseCase: IGetPaymentsWithIdUseCase;
   IUpdateUserVerificationUseCase: IUpdateUserVerificationUseCase;
   IGetReviewsWithIdUseCase: IGetReviewsWithIdUseCase;
+  IDeleteUserAccountUseCase: IDeleteUserAccountUseCase;
 
   IUsersRepository: IUsersRepository;
   ICertificationRepository: ICertificationRepository;

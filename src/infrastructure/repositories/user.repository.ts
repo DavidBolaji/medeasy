@@ -256,6 +256,21 @@ export class UsersRepository implements IUsersRepository {
     }
   }
 
+  async deleteUserAccount(id: string): Promise<void> {
+    try {
+      await db.user.update({
+        where: {
+          id,
+        },
+        data: {
+          deleted: true,
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateUserDetails(
     user: SignUpTwoSchemaType,
     userId: string
