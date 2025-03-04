@@ -160,3 +160,35 @@ export type ReturnGetRequestStatType = {
   title: string;
   value: string;
 };
+
+export interface GetAllRequestParams {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  sortOrder?: string;
+  searchQuery?: string;
+}
+
+export type IAllRequest = Request & {
+  user: { fname: string; lname: string } | null;
+  acceptedBider: {
+    user: { fname: string; lname: string };
+  } | null;
+};
+
+export type IRequest = Pick<Request, 'title' | 'location' | 'stage' | 'id'> & {
+  createdAt: string;
+  user: { fname: string; lname: string } | null;
+  acceptedBider: {
+    user: { fname: string; lname: string };
+  } | null;
+};
+
+export type IGetAllRequestType = {
+  requests: IAllRequest[];
+  totalPages: number;
+};
+export type ReturnIGetAllRequestType = {
+  requests: IRequest[];
+  totalPages: number;
+};

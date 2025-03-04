@@ -16,25 +16,24 @@ export type IGetRequestStatController = ReturnType<
 >;
 
 function presenter(userStatus: GetRequestStatType): ReturnGetRequestStatType[] {
-  const status = Object.keys(userStatus);
+  const RequestStat: ReturnGetRequestStatType[] = [
+    {
+      title: 'Pending requests',
+      value: (userStatus['NEW'] || 0).toString(),
+      icon: Loader,
+    },
+    {
+      title: 'In-progress requests',
+      value: (userStatus['ONGOING'] || 0).toString(),
+      icon: Clock,
+    },
+    {
+      title: 'Completed requests',
+      value: (userStatus['COMPLETED'] || 0).toString(),
+      icon: CheckCircle,
+    },
+  ];
 
-  const RequestStat: ReturnGetRequestStatType[] = [];
-
-  status
-    .filter((el) => el !== 'CANCELLED')
-    .forEach((stat) => {
-      RequestStat.push({
-        title:
-          stat === 'NEW'
-            ? 'Pending requests'
-            : stat === 'ONGOING'
-              ? 'In-progress requests'
-              : 'Completed requests',
-        value: userStatus[stat].toString(),
-        icon:
-          stat === 'NEW' ? Loader : stat === 'verified' ? Clock : CheckCircle,
-      });
-    });
   return RequestStat;
 }
 

@@ -13,6 +13,10 @@ import { getRequestStatController } from '@/src/adapters/request/get-request-sta
 import { getRequestStatusUseCase } from '@/src/application/use-cases/request/get-request-stat-use-case';
 import { getMonthlyCompletedController } from '@/src/adapters/request/get-monthly-completed.controller';
 import { getMonthlyCompletedusUseCase } from '@/src/application/use-cases/request/get-monthly-completed-use-case';
+import { getAllRequestUseCase } from '@/src/application/use-cases/request/get-all-request-use-case';
+import { getAllRequestController } from '@/src/adapters/request/get-all-request.controller';
+import { deleteManyRequestController } from '@/src/adapters/request/delete-many-request.controller';
+import { deleteManyRequestUseCase } from '@/src/application/use-cases/request/delete-many-request-use-case';
 
 export function createRequestModule() {
   const requestModule = createModule();
@@ -61,6 +65,18 @@ export function createRequestModule() {
       DI_SYMBOLS.IRequestRepository,
     ]);
 
+  requestModule
+    .bind(DI_SYMBOLS.IGetAllRequestUseCase)
+    .toHigherOrderFunction(getAllRequestUseCase, [
+      DI_SYMBOLS.IRequestRepository,
+    ]);
+
+  requestModule
+    .bind(DI_SYMBOLS.IDeleteManyRequestUseCase)
+    .toHigherOrderFunction(deleteManyRequestUseCase, [
+      DI_SYMBOLS.IRequestRepository,
+    ]);
+
   // controller
   requestModule
     .bind(DI_SYMBOLS.ICreateRequestController)
@@ -101,6 +117,20 @@ export function createRequestModule() {
     .bind(DI_SYMBOLS.IGetMonthlyCompletedController)
     .toHigherOrderFunction(getMonthlyCompletedController, [
       DI_SYMBOLS.IGetMonthlyCompletedUseCase,
+      DI_SYMBOLS.IAuthenticationService,
+    ]);
+
+  requestModule
+    .bind(DI_SYMBOLS.IGetAllRequestController)
+    .toHigherOrderFunction(getAllRequestController, [
+      DI_SYMBOLS.IAuthenticationService,
+      DI_SYMBOLS.IGetAllRequestUseCase,
+    ]);
+
+  requestModule
+    .bind(DI_SYMBOLS.IDeleteManyRequestController)
+    .toHigherOrderFunction(deleteManyRequestController, [
+      DI_SYMBOLS.IDeleteManyRequestUseCase,
       DI_SYMBOLS.IAuthenticationService,
     ]);
 

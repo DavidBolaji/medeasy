@@ -4,14 +4,16 @@ import { IRequestRepository } from '@/src/application/repositories/request.repos
 import { AccptedBiderSchemaType } from '@/src/entities/models/bid';
 import {
   GetAccountOwnerRequestType,
+  GetAllRequestParams,
   GetAllRequestType,
   GetRequestsSchemaType,
   GetRequestStatType,
   GetSingleRequestType,
+  IGetAllRequestType,
   RequestSchemaType,
 } from '@/src/entities/models/requests';
 import { ITransaction } from '@/src/entities/models/transaction';
-import { Stage } from '@prisma/client';
+import { Prisma, Stage } from '@prisma/client';
 import { endOfYear, startOfYear } from 'date-fns';
 
 export class RequestRepository implements IRequestRepository {
@@ -107,6 +109,69 @@ export class RequestRepository implements IRequestRepository {
       ]);
 
       return { requests, total };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllRequest({
+    page = 1,
+    limit = 10,
+    sort,
+    sortOrder,
+    searchQuery,
+  }: GetAllRequestParams): Promise<IGetAllRequestType> {
+    const skip = (page - 1) * limit;
+
+    const whereClause: Prisma.RequestWhereInput = {
+      AND: [
+        ...(searchQuery
+          ? [
+              {
+                OR: [
+                  { title: { contains: searchQuery } },
+                  { location: { contains: searchQuery } },
+                ],
+              },
+            ]
+          : []),
+      ],
+    };
+
+    const orderBy: Prisma.RequestOrderByWithRelationInput =
+      sort === 'fname'
+        ? {
+            user: {
+              fname: sortOrder as Prisma.SortOrder,
+            },
+          }
+        : sort === 'provider'
+          ? {
+              acceptedBider: {
+                user: {
+                  fname: sortOrder as Prisma.SortOrder,
+                },
+              },
+            }
+          : {
+              [sort as string]: sortOrder as Prisma.SortOrder,
+            };
+    try {
+      const totalItems = await db.request.count({ where: whereClause });
+      const request = await db.request.findMany({
+        where: whereClause,
+        include: {
+          user: { select: { fname: true, lname: true } },
+          acceptedBider: {
+            select: { user: { select: { fname: true, lname: true } } },
+          },
+        },
+        skip,
+        take: limit,
+        orderBy,
+      });
+      const totalPages = Math.ceil(totalItems / limit);
+      return { requests: request ?? [], totalPages };
     } catch (error) {
       throw error;
     }
@@ -222,6 +287,21 @@ export class RequestRepository implements IRequestRepository {
         },
       });
       return request || null;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteManyRequest(input: Set<string>): Promise<void> {
+    console.log(input);
+    try {
+      await db.request.deleteMany({
+        where: {
+          id: {
+            in: Array.from(input),
+          },
+        },
+      });
     } catch (error) {
       throw error;
     }

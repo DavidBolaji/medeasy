@@ -122,6 +122,10 @@ import { IGetReviewsWithIdUseCase } from '@/src/application/use-cases/review/get
 import { IGetReviewsWithIdController } from '@/src/adapters/review/get-review-with-id.controller';
 import { IDeleteUserAccountController } from '@/src/adapters/users/delete-user-account.controller';
 import { IDeleteUserAccountUseCase } from '@/src/application/use-cases/user/delete-user-account-use-case';
+import { IGetAllRequestController } from '@/src/adapters/request/get-all-request.controller';
+import { IGetAllRequestUseCase } from '@/src/application/use-cases/request/get-all-request-use-case';
+import { IDeleteManyRequestController } from '@/src/adapters/request/delete-many-request.controller';
+import { IDeleteManyRequestUseCase } from '@/src/application/use-cases/request/delete-many-request-use-case';
 // localhost:3000/dashboard/help-provider/personal-details
 export const DI_SYMBOLS = {
   IAuthenticationService: Symbol.for('IAuthenticationService'),
@@ -213,7 +217,10 @@ export const DI_SYMBOLS = {
   ),
   IGetReviewsWithIdController: Symbol.for('IGetReviewsWithIdController'),
   IDeleteUserAccountController: Symbol.for('IDeleteUserAccountController'),
+  IGetAllRequestController: Symbol.for('IGetAllRequestController'),
+  IDeleteManyRequestController: Symbol.for('IDeleteManyRequestController'),
 
+  // use case
   ISignUpUseCase: Symbol.for('ISignUpUseCase'),
   ISignUpAccountOwnerUseCase: Symbol.for('ISignUpAccountOwnerUseCase'),
   ISignInUseCase: Symbol.for('ISignInUseCase'),
@@ -283,6 +290,8 @@ export const DI_SYMBOLS = {
   IUpdateUserVerificationUseCase: Symbol.for('IUpdateUserVerificationUseCase'),
   IGetReviewsWithIdUseCase: Symbol.for('IGetReviewsWithIdUseCase'),
   IDeleteUserAccountUseCase: Symbol.for('IDeleteUserAccountUseCase'),
+  IGetAllRequestUseCase: Symbol.for('IGetAllRequestUseCase'),
+  IDeleteManyRequestUseCase: Symbol.for('IDeleteManyRequestUseCase'),
 
   IUsersRepository: Symbol.for('IUsersRepository'),
   ICertificationRepository: Symbol.for('ICertificationRepository'),
@@ -357,6 +366,8 @@ export interface DI_RETURN_TYPES {
   IUpdateUserVerificationController: IUpdateUserVerificationController;
   IGetReviewsWithIdController: IGetReviewsWithIdController;
   IDeleteUserAccountController: IDeleteUserAccountController;
+  IGetAllRequestController: IGetAllRequestController;
+  IDeleteManyRequestController: IDeleteManyRequestController;
 
   ISignUpUseCase: ISignUpUseCase;
   ISignUpAccountOwnerUseCase: ISignUpAccountOwnerUseCase;
@@ -409,6 +420,8 @@ export interface DI_RETURN_TYPES {
   IUpdateUserVerificationUseCase: IUpdateUserVerificationUseCase;
   IGetReviewsWithIdUseCase: IGetReviewsWithIdUseCase;
   IDeleteUserAccountUseCase: IDeleteUserAccountUseCase;
+  IGetAllRequestUseCase: IGetAllRequestUseCase;
+  IDeleteManyRequestUseCase: IDeleteManyRequestUseCase;
 
   IUsersRepository: IUsersRepository;
   ICertificationRepository: ICertificationRepository;

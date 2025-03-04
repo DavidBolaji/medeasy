@@ -152,12 +152,15 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
           )} */}
           {more && (
             <Select>
-              <SelectTrigger ref={divRef} className="w-32 rounded-full">
+              <SelectTrigger
+                ref={divRef}
+                className="w-32 rounded-full font-instrument bg-transparent ring-0"
+              >
                 More Action
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white">
                 <span
-                  className="p-2 hover:bg-green-500/10 cursor-pointer text-sm font-satoshi inline-block"
+                  className="p-2 hover:bg-green-500/10 cursor-pointer text-sm font-instrument inline-block"
                   onClick={handleDelete}
                 >
                   Delete Selected

@@ -1,9 +1,11 @@
 import { AccptedBiderSchemaType } from '@/src/entities/models/bid';
 import {
+  GetAllRequestParams,
   GetAllRequestType,
   GetRequestsSchemaType,
   GetRequestStatType,
   GetSingleRequestType,
+  IGetAllRequestType,
   RequestSchemaType,
 } from '@/src/entities/models/requests';
 import { ITransaction } from '@/src/entities/models/transaction';
@@ -35,7 +37,9 @@ export interface IRequestRepository {
   getSingleRequest(requestId: string): Promise<GetSingleRequestType | null>;
   getRequestStat(): Promise<GetRequestStatType>;
   getMonthlyCompleted(): Promise<any>;
+  getAllRequest(input: GetAllRequestParams): Promise<IGetAllRequestType>;
 
+  deleteManyRequest(input: Set<string>): Promise<void>;
   createRequest(
     input: RequestSchemaType,
     userId: string,

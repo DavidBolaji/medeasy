@@ -6,6 +6,7 @@ import { DashboardHeader } from './_components/dashboard-header';
 import { cookies } from 'next/headers';
 import { SESSION_COOKIE } from '@/config';
 import { redirect } from 'next/navigation';
+import { DeleteModal } from './_components/delete-modal/delete-modal';
 
 export default async function DashboardLayout({
   children,
@@ -44,6 +45,7 @@ export default async function DashboardLayout({
           >
             <Loading />
             {children}
+            <DeleteModal />
           </Content>
         </Layout>
       </div>

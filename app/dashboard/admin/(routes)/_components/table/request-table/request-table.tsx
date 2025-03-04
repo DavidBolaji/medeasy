@@ -1,26 +1,26 @@
 'use client';
 
 import * as React from 'react';
-import CustomerTableHeader from './customer-table-header';
-import { CustomerTableProps } from './types';
+import RequestTableHeader from './request-table-header';
+import { RequestTableProps } from './types';
 
-import CustomerTableRow from './customer-table-row';
 import { Empty } from 'antd';
 import { useTable } from '../../../_hooks/use-table';
-import { filterCustomer } from './action';
+import { filterRequest } from './action';
 import { MainHeader } from '../main-header';
 import Pagination from '../pagination';
 import { Table, TableBody } from '@/app/_components/ui/table';
-import { Customer } from '@/src/entities/models/user';
+import RequestTableRow from './request-table-row';
+import { IRequest } from '@/src/entities/models/requests';
 import { useDeleteModal } from '../hooks/use-delete-modal';
 
-export default function CustomerTable({
+export default function RequestTable({
   initialCustomers = [],
   onSort,
   totalPages,
   page,
   itemsPerPage,
-}: CustomerTableProps) {
+}: RequestTableProps) {
   const { toggleModal } = useDeleteModal();
   const {
     items,
@@ -29,39 +29,39 @@ export default function CustomerTable({
     handleSort,
     sortColumn,
     sortDirection,
-    deleteMultiple,
     handleSearch,
     toggleSelectAll,
     toggleSelectItem,
     selectedItems,
     loading,
-  } = useTable<Customer>({
+    deleteMultiple,
+  } = useTable<IRequest>({
     initialItems: initialCustomers,
     onSort,
     onSearch: (form, params) => {
-      filterCustomer(form, params);
+      filterRequest(form, params);
     },
     onFilter(form, params, path) {
-      filterCustomer(form, params, path);
+      filterRequest(form, params, path);
     },
     async onDeleteMany(data) {
-      toggleModal(true, 'DELETE_USERS', data);
+      toggleModal(true, 'DELETE_REQUEST', data);
     },
   });
 
   return (
-    <div className="w-full scrollbar-hide">
+    <div className="w-full scrollbar-hide overflow-hidden">
       <MainHeader
         title={'Users'}
-        placeholder="Search users by name and email"
+        placeholder="Search users by request and location"
         handleSearch={handleSearch}
         action={deleteMultiple}
         search
         more
       />
-      <div className="rounded-b-2xl border-t-0 bg-white overflow-hidden border border-[#E4E4EF]">
+      <div className="rounded-b-2xl scrollbar-hide border-t-0 bg-white overflow-hidden border border-[#E4E4EF]">
         <Table>
-          <CustomerTableHeader
+          <RequestTableHeader
             handleSort={handleSort}
             allChecked={allChecked}
             sortDirection={sortDirection}
@@ -69,10 +69,10 @@ export default function CustomerTable({
             toggleSelectAll={toggleSelectAll}
           />
           <TableBody>
-            {items.map((customer: Customer) => (
-              <CustomerTableRow
-                key={customer.id}
-                customer={customer}
+            {items.map((request: IRequest) => (
+              <RequestTableRow
+                key={request.id}
+                request={request}
                 selectedItems={selectedItems}
                 toggleSelectItem={toggleSelectItem}
               />
@@ -93,7 +93,7 @@ export default function CustomerTable({
         totalPages={totalPages ?? 0}
         page={page ?? 1}
         itemsPerPage={itemsPerPage ?? 10}
-        onFilter={filterCustomer}
+        onFilter={filterRequest}
       />
     </div>
   );
