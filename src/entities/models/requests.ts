@@ -28,7 +28,7 @@ export const requestSchema = z.object({
   description: z.string(),
   duration: z.string(),
   start: z.string(),
-  stage: z.enum(['NEW', 'ONGOING', 'COMPLETED', 'CANCELLED']),
+  stage: z.enum(['NEW', 'ONGOING', 'COMPLETED', 'CANCELLED']).or(z.undefined()),
   location: z.string(),
   price: z.string(),
   finalPrice: z.string().or(z.undefined()),
