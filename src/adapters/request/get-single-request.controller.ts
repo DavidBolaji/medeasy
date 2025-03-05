@@ -22,6 +22,7 @@ function presenter(
     id: request.id,
     service: request.service,
     title: request.title,
+    stage: request.stage,
     description: request.description,
     duration: request.duration,
     start: request.start.toISOString(),
@@ -35,6 +36,15 @@ function presenter(
       fname: request?.user?.fname || '',
       lname: request?.user?.lname || '',
       email: request?.user?.email || '',
+    },
+    acceptedBider: {
+      pitch: request.acceptedBider?.pitch as string,
+      createdAt: format(request.acceptedBider?.createdAt.toISOString() || ''),
+      price: parseIntToCurrency(request.acceptedBider?.price.toString() || ''),
+      user: {
+        fname: request.acceptedBider?.user.fname || '',
+        lname: request.acceptedBider?.user.lname || '',
+      },
     },
   };
 }

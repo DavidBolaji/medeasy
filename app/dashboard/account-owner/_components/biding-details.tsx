@@ -1,3 +1,5 @@
+'use client';
+
 import SafeHTML from '@/app/_components/safe-html';
 import Typography from '@/app/_components/typography/typography';
 import { cn, parseIntToCurrency } from '@/app/_lib/utils';
@@ -11,6 +13,7 @@ interface BidingDetailsProps {
   singlePage?: boolean;
   allowCounter: boolean;
   job: string;
+  show?: boolean;
 }
 
 const BidingDetails: React.FC<BidingDetailsProps> = ({
@@ -18,6 +21,7 @@ const BidingDetails: React.FC<BidingDetailsProps> = ({
   singlePage = false,
   allowCounter,
   job,
+  show = true,
 }) => {
   if (!biding) {
     return null;
@@ -35,7 +39,7 @@ const BidingDetails: React.FC<BidingDetailsProps> = ({
           })}
         >
           <Typography as="p" className="text-xs text-[#214395]">
-            {biding.request.service}
+            {biding?.request?.service}
           </Typography>
         </span>
       </div>
@@ -52,9 +56,13 @@ const BidingDetails: React.FC<BidingDetailsProps> = ({
             job={job}
             biderId={biding.user.id}
           />
-        ) : (
+        ) : show ? (
           <Typography as="h4" className="text-black font-bold ">
             {parseIntToCurrency(biding.price.toString())}
+          </Typography>
+        ) : (
+          <Typography as="h4" className="text-black font-bold ">
+            {biding.price}
           </Typography>
         )}
       </div>

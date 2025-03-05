@@ -10,7 +10,7 @@ const TopBar = () => {
   const { onOpenReject } = useRejectModal();
 
   return (
-    <div className="flex w-full h-16 lg:px-12 items-center justify-between bg-primary">
+    <div className="flex w-full h-16 lg:ml-3 lg:px-8 px-2 items-center justify-between bg-primary">
       <Typography className="text-white font-semibold text-xl">
         Verify User
       </Typography>

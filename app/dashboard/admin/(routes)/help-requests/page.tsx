@@ -41,7 +41,7 @@ export default async function HelpRequestsPage({
         <div className="grid grid-cols-6 gap-4">
           {reqStat.data
             ? reqStat?.data.map((el, i) => (
-                <div key={i} className="col-span-2">
+                <div key={i} className="lg:col-span-2 col-span-6">
                   <Dashboardcard
                     key={el.title}
                     icon={el.icon}

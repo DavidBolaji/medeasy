@@ -39,12 +39,14 @@ interface AcceptOfferModalProps {
   biders: RequestBiderSchemaType[] | [];
   requestPrice: string;
   job: string;
+  show?: boolean;
 }
 
 export default function AcceptOfferModal({
   biders,
   requestPrice,
   job,
+  show = true,
 }: AcceptOfferModalProps) {
   const screen = useBreakpoint();
   const { open, onOpenChange } = useAcceptOfferModal();
@@ -90,20 +92,22 @@ export default function AcceptOfferModal({
               </div>
             </div>
           </div>
-          <div className="flex items-center">
-            <Button
-              variant="outline"
-              className="h-10"
-              onClick={() => onOpenChange(selectedBider?.id || '')}
-              asChild
-            >
-              <Link
-                href={`/dashboard/account-owner/home/${params.requestId}/${selectedBider?.id}`}
+          {show ? (
+            <div className="flex items-center">
+              <Button
+                variant="outline"
+                className="h-10"
+                onClick={() => onOpenChange(selectedBider?.id || '')}
+                asChild
               >
-                Accept Offer
-              </Link>
-            </Button>
-          </div>
+                <Link
+                  href={`/dashboard/account-owner/home/${params.requestId}/${selectedBider?.id}`}
+                >
+                  Accept Offer
+                </Link>
+              </Button>
+            </div>
+          ) : null}
         </DialogHeader>
 
         <Tabs
@@ -142,19 +146,21 @@ export default function AcceptOfferModal({
           </TabsContent>
         </Tabs>
 
-        <div className="md:px-12 px-4">
-          <Button
-            onClick={() => onOpenChange(selectedBider?.id || '')}
-            className="hover:border-none md:w-auto w-full md:hidden -translate-y-8"
-            asChild
-          >
-            <Link
-              href={`/dashboard/account-owner/home/${params.requestId}/${selectedBider?.id}`}
+        {show ? (
+          <div className="md:px-12 px-4">
+            <Button
+              onClick={() => onOpenChange(selectedBider?.id || '')}
+              className="hover:border-none md:w-auto w-full md:hidden -translate-y-8"
+              asChild
             >
-              Accept Offer
-            </Link>
-          </Button>
-        </div>
+              <Link
+                href={`/dashboard/account-owner/home/${params.requestId}/${selectedBider?.id}`}
+              >
+                Accept Offer
+              </Link>
+            </Button>
+          </div>
+        ) : null}
       </DialogContent>
     </Dialog>
   ) : null;

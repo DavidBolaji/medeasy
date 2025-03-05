@@ -284,6 +284,19 @@ export class RequestRepository implements IRequestRepository {
               email: true,
             },
           },
+          acceptedBider: {
+            select: {
+              pitch: true,
+              price: true,
+              createdAt: true,
+              user: {
+                select: {
+                  fname: true,
+                  lname: true,
+                },
+              },
+            },
+          },
         },
       });
       return request || null;

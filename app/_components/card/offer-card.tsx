@@ -21,7 +21,7 @@ const OfferCard: React.FC<OfferCardProps> = ({ bider }) => {
   const finalRating = getRating(bider);
 
   return (
-    <Card className="rounded-2xl bg-white px-7 py-8 shadow-xl w-full">
+    <Card className="rounded-2xl bg-white px-7 py-8 shadow w-full border-0">
       <div className="flex items-center justify-between mb-4">
         <div>
           <Avatar className="w-12 h-12">
@@ -36,7 +36,7 @@ const OfferCard: React.FC<OfferCardProps> = ({ bider }) => {
             </Typography>
           </div>
         </div>
-        <div className="text-xs flex items-center gap-x-2">
+        <div className="text-xs flex text-nowrap items-center gap-x-2 -translate-x-2">
           <Rate
             character={<StarIcon size={16} />}
             allowHalf

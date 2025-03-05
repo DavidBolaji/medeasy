@@ -235,6 +235,28 @@ export const profileList = [
   },
 ];
 
+const hash = {
+  NEW: 'New',
+  ONGOING: 'Pending',
+  COMPLETED: 'Completed',
+  CANCELLED: 'Cancelled',
+};
+
+export const helpList = (data: any) => [
+  {
+    key: 'details',
+    label: `Request details (${hash[data.stage as keyof typeof hash]})`,
+  },
+  {
+    key: 'offers',
+    label: 'Offers',
+  },
+  {
+    key: 'acceptedOffer',
+    label: 'Accepted offer',
+  },
+];
+
 export const offertabList = [
   {
     key: 'details',

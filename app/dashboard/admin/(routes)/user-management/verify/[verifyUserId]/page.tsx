@@ -32,8 +32,8 @@ export default async function VerifyUserPage({ params }: VerifyUserPageParams) {
   ]);
 
   return (
-    <div className="bg-grey-200 relative pl-3">
-      <div className="lg:px-12 my-2">
+    <div className="bg-grey-200 relative">
+      <div className="lg:px-12 px-2 my-2">
         <Crumb
           crumbData={[
             {
@@ -52,7 +52,7 @@ export default async function VerifyUserPage({ params }: VerifyUserPageParams) {
         />
       </div>
       <TopBar />
-      <div className="lg:px-12 space-y-6">
+      <div className="lg:px-12 space-y-6 px-2">
         <RenderPersonalDetails details={details.data} />
         <RenderServiceDetails services={services.data} />
         <RenderWorkDetails work={work.data} />

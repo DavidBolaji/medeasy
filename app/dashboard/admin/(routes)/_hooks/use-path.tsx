@@ -7,7 +7,7 @@ const usePath = () => {
   const params = useParams();
   const userId = params?.userId;
   const verifyUserId = params?.verifyUserId;
-  const customerId = params?.customerId;
+  const requestId = params?.requestId;
   const promotionId = params?.promotionId;
   const blogId = params?.blogId;
   const faqId = params?.faqId;
@@ -30,40 +30,36 @@ const usePath = () => {
                   ? '/dashboard/admin/payment'
                   : pathname === '/dashboard/admin/payment/add'
                     ? '/dashboard/admin/payment'
-                    : pathname ===
-                        `/dashboard/admin/help-requests/${customerId}`
+                    : pathname === `/dashboard/admin/help-requests/${requestId}`
                       ? '/dashboard/admin/help-requests'
-                      : pathname ===
-                          `/dashboard/admin/help-requests/${customerId}/edit`
-                        ? '/dashboard/admin/help-requests'
-                        : pathname === `/dashboard/admin/communication`
+                      : pathname === `/dashboard/admin/communication`
+                        ? '/dashboard/admin/communication'
+                        : pathname === `/dashboard/admin/communication/add`
                           ? '/dashboard/admin/communication'
-                          : pathname === `/dashboard/admin/communication/add`
+                          : pathname ===
+                              `/dashboard/admin/communication/${promotionId}`
                             ? '/dashboard/admin/communication'
                             : pathname ===
-                                `/dashboard/admin/communication/${promotionId}`
+                                `/dashboard/admin/communication/${promotionId}/edit`
                               ? '/dashboard/admin/communication'
-                              : pathname ===
-                                  `/dashboard/admin/communication/${promotionId}/edit`
-                                ? '/dashboard/admin/communication'
-                                : pathname === `/dashboard/admin/settings`
+                              : pathname === `/dashboard/admin/settings`
+                                ? '/dashboard/admin/settings'
+                                : pathname === '/dashboard/admin/settings/add'
                                   ? '/dashboard/admin/settings'
-                                  : pathname === '/dashboard/admin/settings/add'
+                                  : pathname ===
+                                      `/dashboard/admin/settings/${blogId}/edit`
                                     ? '/dashboard/admin/settings'
                                     : pathname ===
-                                        `/dashboard/admin/settings/${blogId}/edit`
+                                        `/dashboard/admin/settings/faq/${faqId}/edit`
                                       ? '/dashboard/admin/settings'
                                       : pathname ===
-                                          `/dashboard/admin/settings/faq/${faqId}/edit`
+                                          `/dashboard/admin/settings/faq/add`
                                         ? '/dashboard/admin/settings'
-                                        : pathname ===
-                                            `/dashboard/admin/settings/faq/add`
-                                          ? '/dashboard/admin/settings'
-                                          : pathname?.split('/')[
-                                              pathname?.split('/').length - 1
-                                            ];
+                                        : pathname?.split('/')[
+                                            pathname?.split('/').length - 1
+                                          ];
     setLoc(key);
-  }, [pathname, customerId, userId, promotionId, blogId, faqId, verifyUserId]);
+  }, [pathname, requestId, userId, promotionId, blogId, faqId, verifyUserId]);
 
   return { locationCurrent };
 };

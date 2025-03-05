@@ -35,12 +35,14 @@ interface AcceptOfferDrawerProps {
   biders: RequestBiderSchemaType[] | [];
   requestPrice: string;
   job: string;
+  show?: boolean;
 }
 
 export default function AcceptOfferDrawer({
   biders,
   requestPrice,
   job,
+  show = true,
 }: AcceptOfferDrawerProps) {
   const screen = useBreakpoint();
   const { open, onOpenChange } = useAcceptOfferModal();
@@ -58,19 +60,21 @@ export default function AcceptOfferDrawer({
       closeIcon={null}
       width={485}
       footer={
-        <div className="md:px-12 px-4">
-          <Button
-            onClick={() => onOpenChange(selectedBider?.id || '')}
-            className="hover:border-none md:w-auto w-full md:hidden -translate-y-8"
-            asChild
-          >
-            <Link
-              href={`/dashboard/account-owner/home/${params.requestId}/${selectedBider?.id}`}
+        show ? (
+          <div className="md:px-12 px-4">
+            <Button
+              onClick={() => onOpenChange(selectedBider?.id || '')}
+              className="hover:border-none md:w-auto w-full md:hidden -translate-y-8"
+              asChild
             >
-              Accept Offer
-            </Link>
-          </Button>
-        </div>
+              <Link
+                href={`/dashboard/account-owner/home/${params.requestId}/${selectedBider?.id}`}
+              >
+                Accept Offer
+              </Link>
+            </Button>
+          </div>
+        ) : null
       }
     >
       <div className="max-w-5xl h-[600px] max-h-[600px] md:hidden p-0 bg-white rounded-2xl overflow-hidden">
@@ -104,20 +108,22 @@ export default function AcceptOfferDrawer({
               </div>
             </div>
           </div>
-          <div className="md:flex hidden items-center">
-            <Button
-              variant="outline"
-              asChild
-              className="h-8"
-              onClick={() => onOpenChange('')}
-            >
-              <Link
-                href={`/dashboard/account-owner/home/${params.requestId}/accept`}
+          {show ? (
+            <div className="md:flex hidden items-center">
+              <Button
+                variant="outline"
+                asChild
+                className="h-8"
+                onClick={() => onOpenChange('')}
               >
-                Accept Offer
-              </Link>
-            </Button>
-          </div>
+                <Link
+                  href={`/dashboard/account-owner/home/${params.requestId}/accept`}
+                >
+                  Accept Offer
+                </Link>
+              </Button>
+            </div>
+          ) : null}
         </div>
 
         <Tabs

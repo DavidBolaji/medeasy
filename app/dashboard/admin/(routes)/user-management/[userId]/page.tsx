@@ -31,7 +31,7 @@ export default async function ViewUserPage({ params }: ManageUserPageParams) {
 
   return (
     <div className="bg-grey-200">
-      <div className="lg:px-12 my-2">
+      <div className="lg:px-12 px-2 my-2">
         <Crumb
           crumbData={[
             {
@@ -46,7 +46,7 @@ export default async function ViewUserPage({ params }: ManageUserPageParams) {
         />
       </div>
       <TopBar />
-      <div className="lg:px-12">
+      <div className="lg:px-12 px-2">
         <RenderTabs
           details={details.data}
           services={services.data}

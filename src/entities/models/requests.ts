@@ -1,6 +1,6 @@
 import { GENDER, Request } from '@prisma/client';
 import { ComponentType } from 'react';
-import { z } from 'zod';
+import { string, z } from 'zod';
 
 export type RequestStatus = 'new' | 'ongoing' | 'completed';
 
@@ -28,6 +28,7 @@ export const requestSchema = z.object({
   description: z.string(),
   duration: z.string(),
   start: z.string(),
+  stage: z.enum(['NEW', 'ONGOING', 'COMPLETED', 'CANCELLED']),
   location: z.string(),
   price: z.string(),
   finalPrice: z.string().or(z.undefined()),
@@ -105,6 +106,14 @@ export const returnSingleRequestSchema = requestSchema.merge(
       lname: z.string(),
       email: z.string().email(),
     }),
+    acceptedBider: z
+      .object({
+        price: z.string(),
+        pitch: z.string(),
+        createdAt: z.string(),
+        user: z.object({ fname: z.string(), lname: z.string() }),
+      })
+      .or(z.null()),
   })
 );
 
@@ -151,6 +160,12 @@ export type GetSingleRequestType = (Request | null) & {
     fname: string;
     lname: string;
     email: string;
+  } | null;
+  acceptedBider: {
+    price: number;
+    pitch: string;
+    createdAt: Date;
+    user: { fname: string; lname: string };
   } | null;
 };
 
