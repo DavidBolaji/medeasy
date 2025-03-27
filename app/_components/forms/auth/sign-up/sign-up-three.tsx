@@ -47,10 +47,14 @@ const SignUpThreeForm: React.FC<{
       {({ handleSubmit, isValid, values, errors }) => (
         <Form onSubmit={handleSubmit} className="space-y-6 md:min-w-[400px]">
           <Typography as="h3" className="">
-            Tell us about what you do
+            Tell us about you
           </Typography>
 
-          <FormikUpload name="cv" label="Do you have a CV?" />
+          <FormikUpload
+            name="cv"
+            uploadTxt="CV uploaded uccessfully"
+            label="Do you have a CV?"
+          />
 
           <FieldArray name="services">
             {({ push, remove }) =>

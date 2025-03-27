@@ -25,6 +25,7 @@ const CertificationField: React.FC<CertificationFieldProps> = ({
         name={`certifications[${index}].certificate`}
         className="bg-white"
         txt="Upload Certificate"
+        uploadTxt="Certificate uploaded successfully"
       />
       <FormikInput
         label="Certification name"

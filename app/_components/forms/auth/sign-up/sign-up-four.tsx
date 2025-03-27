@@ -40,7 +40,7 @@ const SignUpFourForm: React.FC<{
     } as unknown as allSignUppAccountOwnerSchemaType);
 
     if (!response) {
-      setSubmitting(false)
+      setSubmitting(false);
       return toggleNotification({
         type: 'success',
         title: 'Account Created Successfully',
@@ -50,7 +50,7 @@ const SignUpFourForm: React.FC<{
     }
 
     if (response?.error) {
-      setSubmitting(false)
+      setSubmitting(false);
       return toggleNotification({
         show: true,
         title: 'Account creation Failed',
@@ -104,7 +104,11 @@ const SignUpFourForm: React.FC<{
             name="no"
             type="text"
           />
-          <FormikUpload txt="Upload ID" name="doc" />
+          <FormikUpload
+            txt="Upload ID"
+            uploadTxt="ID uploaded successfully"
+            name="doc"
+          />
           <FormikCalenderInput
             label="ID expiry date"
             placeholder="Id expiry date"

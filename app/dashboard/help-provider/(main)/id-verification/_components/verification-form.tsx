@@ -118,7 +118,11 @@ const VerificationForm: React.FC<VerificationFormProps> = ({
             placeholder="Enter your ID number"
           />
 
-          <FormikUpload txt="Upload ID" name="doc" />
+          <FormikUpload
+            uploadTxt="ID uploaded successfully"
+            txt="Upload ID"
+            name="doc"
+          />
 
           <FormikCalenderInput
             label="ID Expiry Date"

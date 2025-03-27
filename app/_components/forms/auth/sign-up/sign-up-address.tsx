@@ -43,7 +43,7 @@ const SignUpAddressForm: React.FC<{
       {({ handleSubmit, isValid }) => (
         <Form onSubmit={handleSubmit} className="space-y-6 md:min-w-[400px]">
           <Typography as="h3" className="">
-            Tell us about what you do
+            Tell us about you
           </Typography>
           <Typography as="p" className="">
             This address will only be visible to the help providers you are

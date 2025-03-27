@@ -17,23 +17,36 @@ import { requstFormList } from '@/app/_lib/data';
 import FormikFormatedTextArea from '@/app/_components/input/formik-formated-textarea';
 import FormikCheckbox from '@/app/_components/input/formik-checkbox';
 import FormikCalenderInput from '@/app/_components/input/formik-calender-input';
+import { useNotification } from '@/app/_hooks/use-notification';
 
 const CreateRequestForm = () => {
   const { insert } = useRequest();
+  const { toggleNotification } = useNotification();
 
   const onSubmit = async (
     values: RequestSchemaType,
     { setSubmitting }: FormikHelpers<RequestSchemaType>
   ) => {
     setSubmitting(true);
-    try {
-      console.log(values);
-      await createRequest(values);
-    } catch (error) {
-      throw error;
-    } finally {
-      setSubmitting(false);
+    const response = await createRequest(values);
+    if (response.success) {
+      return toggleNotification({
+        show: true,
+        title: 'Request created successfully',
+        type: 'success',
+        message: 'Request has been successfully created',
+      });
     }
+
+    if (!response.success) {
+      toggleNotification({
+        show: true,
+        title: 'Login Failed',
+        type: 'error',
+        message: response.error || 'Something went wrong',
+      });
+    }
+    setSubmitting(false);
   };
 
   return (

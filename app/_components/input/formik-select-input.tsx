@@ -11,6 +11,7 @@ import {
 
 import { Label } from '../ui/label';
 import { cn } from '@/app/_lib/utils';
+import { Loader } from 'lucide-react';
 
 interface FormikSelectInputProp
   extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -76,6 +77,11 @@ const FormikSelectInput = ({
                 {option.label}
               </SelectItem>
             ))}
+          {!options && (
+            <div className="w-full h-full flex items-center justify-center py-8">
+              <Loader className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          )}
         </SelectContent>
       </Select>
     </div>

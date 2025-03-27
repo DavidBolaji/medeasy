@@ -46,7 +46,11 @@ const WorkDetailForm = ({
     >
       {({ handleSubmit, isValid, values, isSubmitting }) => (
         <Form onSubmit={handleSubmit} className="space-y-6 md:min-w-[400px]">
-          <FormikUpload name="cv" label="Do you have a CV?" />
+          <FormikUpload
+            uploadTxt="CV uploaded successfully"
+            name="cv"
+            label="Do you have a CV?"
+          />
 
           <FormikSelectInput
             name="medical"

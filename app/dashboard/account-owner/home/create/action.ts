@@ -11,8 +11,14 @@ export async function createRequest(values: RequestSchemaType) {
   try {
     const createRequestController = getInjection('ICreateRequestController');
     await createRequestController(values, sessionId);
+    return {
+      success: true,
+    };
   } catch (error) {
-    throw error;
+    return {
+      success: false,
+      error: (error as Error).message,
+    };
   }
   redirect('/dashboard/account-owner/home');
 }

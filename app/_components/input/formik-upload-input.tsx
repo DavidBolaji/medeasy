@@ -22,12 +22,14 @@ interface IFormikUploadProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   label?: string;
   txt?: string;
+  uploadTxt: string;
 }
 
 const FormikUpload: React.FC<IFormikUploadProps> = ({
   name,
   label = undefined,
   txt,
+  uploadTxt = 'CV uploaded successfully',
   ...rest
 }) => {
   //handle upload
@@ -84,7 +86,7 @@ const FormikUpload: React.FC<IFormikUploadProps> = ({
           ) : value ? (
             <div className="flex flex-col items-center gap-2">
               <div className="text-green-500">✓</div>
-              <p className="text-sm text-gray-500">CV uploaded successfully</p>
+              <p className="text-sm text-gray-500">{uploadTxt}</p>
               <button
                 type="button"
                 className="text-sm text-blue-500 hover:text-blue-600"
