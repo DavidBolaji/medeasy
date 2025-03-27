@@ -41,7 +41,7 @@ const CreateRequestForm = () => {
     if (!response.success) {
       toggleNotification({
         show: true,
-        title: 'Login Failed',
+        title: 'Request Creation Failed',
         type: 'error',
         message: response.error || 'Something went wrong',
       });

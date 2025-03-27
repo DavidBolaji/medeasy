@@ -1,4 +1,4 @@
-import { formateDateToDbDate, parseCurrencyToInt } from '@/app/_lib/utils';
+import { formatDateToDbDate2, parseCurrencyToInt } from '@/app/_lib/utils';
 import db from '@/prisma';
 import { IRequestRepository } from '@/src/application/repositories/request.repository.interface';
 import { AccptedBiderSchemaType } from '@/src/entities/models/bid';
@@ -334,7 +334,7 @@ export class RequestRepository implements IRequestRepository {
           title: input.title,
           description: input.description,
           duration: input.duration,
-          start: new Date(formateDateToDbDate(input.start)),
+          start: new Date(formatDateToDbDate2(input.start)),
           location: input.location,
           price: parseCurrencyToInt(input.price),
           negotiable: input.negotiable,
